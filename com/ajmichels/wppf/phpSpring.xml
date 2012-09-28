@@ -1,0 +1,39 @@
+<beans>
+	
+	<bean id="XmlDataService"   class="com_ajmichels_wppf_data_service">
+		<property name="DataInterpreter">
+			<bean class="com_ajmichels_wppf_xml_service" />
+		</property>
+	</bean>
+	
+	<bean id="JsonDataService"  class="com_ajmichels_wppf_data_service">
+		<property name="DataInterpreter">
+			<bean class="com_ajmichels_wppf_json_service" />
+		</property>
+	</bean>
+		
+	<bean id="OptionManager"    class="com_ajmichels_wppf_option_manager">
+		<property name="Plugin">
+			<value>${plugin}</value>
+		</property>
+	</bean>
+		
+	<bean id="ActionManager"    class="com_ajmichels_wppf_action_manager">
+		<property name="Plugin">
+			<value>${plugin}</value>
+		</property>
+	</bean>
+		
+	<bean id="FilterManager"    class="com_ajmichels_wppf_filter_manager">
+		<property name="Plugin">
+			<value>${plugin}</value>
+		</property>
+	</bean>
+		
+	<bean id="ShortcodeManager" class="com_ajmichels_wppf_shortcode_manager">
+		<property name="Plugin">
+			<value>${plugin}</value>
+		</property>
+	</bean>
+	
+</beans>

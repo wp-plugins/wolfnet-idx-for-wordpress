@@ -1,0 +1,24 @@
+                                                                                                    
+               oooooo   oooooo     oooo ooooooooo.   ooooooooo.   oooooooooooo                      
+                `888.    `888.     .8'  `888   `Y88. `888   `Y88. `888'     `8                      
+                 `888.   .8888.   .8'    888   .d88'  888   .d88'  888                              
+                  `888  .8'`888. .8'     888ooo88P'   888ooo88P'   888oooo8                         
+                   `888.8'  `888.8'      888          888          888    "                         
+                    `888'    `888'       888          888          888                              
+                     `8'      `8'       o888o        o888o        o888o                             
+                                                                                                    
+                  _                 _                     _                                         
+     \    / _  ._ _| |_) ._ _   _  _   |_) |      _  o ._    |_ ._ _. ._ _   _        _  ._ |       
+      \/\/ (_) | (_| |   | (/_ _> _>   |   | |_| (_| | | |   |  | (_| | | | (/_ \/\/ (_) |  |<      
+                                              _|                                                    
+                                                                                                    
+====================================================================================================
+
+The WordPress Plugin framework is an open source project with the goal of making WordPress plugin
+development more OO (Object Oriented) and untimatley more readable and maintainable.  This is done
+using a mixture of conventions and phpSpring (http://phpSpring.ajmichels.com) configuration.
+
+For more information visit the wiki at http://wppf.ajmichels.com/wiki.
+
+Contributors: AJ Michels (ajmichels.com)
+Git Repository: http://git.ajmichels.com

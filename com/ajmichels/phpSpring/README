@@ -1,0 +1,19 @@
+                                                                                                    
+              oooo                    .oooooo..o                      o8o                           
+              `888                   d8P'    `Y8                      `"'                           
+   oo.ooooo.   888 .oo.   oo.ooooo.  Y88bo.      oo.ooooo.  oooo d8b oooo  ooo. .oo.    .oooooooo   
+    888' `88b  888P"Y88b   888' `88b  `"Y8888o.   888' `88b `888""8P `888  `888P"Y88b  888' `88b    
+    888   888  888   888   888   888      `"Y88b  888   888  888      888   888   888  888   888    
+    888   888  888   888   888   888 oo     .d8P  888   888  888      888   888   888  `88bod8P'    
+    888bod8P' o888o o888o  888bod8P' 8""88888P'   888bod8P' d888b    o888o o888o o888o `8oooooo.    
+    888                    888                    888                                  d"     YD    
+   o888o                  o888o                  o888o                                 "Y88888P'    
+                                                                                                    
+====================================================================================================
+
+phpSpring is a port of the ColdSpring project (which is based on the Spring java framework).  The 
+project is primarily a dependancy injection framework, however it will eventually also include some
+AOP features as well.
+
+Contributors: AJ Michels (ajmichels.com)
+Git Repository: http://git.ajmichels.com
