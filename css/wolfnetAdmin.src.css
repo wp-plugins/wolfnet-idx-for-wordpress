@@ -27,6 +27,11 @@ html {
 	   when the length of the page is changed by javascript content changes. */
 
   overflow-y: scroll !important;
+  /* Fixing issue caused by wolfnet search builder css */
+
+}
+html body {
+  background-color: transparent !important;
 }
 .wp-admin h2 {
   line-height: 36px;
@@ -94,6 +99,32 @@ html.ie .wolfnetProductKeyValidationWrapper.invalid input {
   padding: 5px;
   font-size: 150%;
 }
+#wolfnet-search-manager .style_box {
+  border: 1px solid #DEDEDE;
+  border-radius: 3px;
+}
+#wolfnet-search-manager .style_box .style_box_header {
+  border-bottom: 1px solid #F2F2F2;
+  color: #333333;
+  font-weight: normal;
+  padding: 2px 5px;
+  text-align: left;
+  background-color: #F2F2F2;
+  background-image: -ms-linear-gradient(top, #fafafa, #ededed);
+  background-image: -moz-linear-gradient(top, #fafafa, #ededed);
+  background-image: -o-linear-gradient(top, #fafafa, #ededed);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ededed));
+  background-image: -webkit-linear-gradient(top, #fafafa, #ededed);
+  background-image: linear-gradient(top, #fafafa, #ededed);
+  padding: 7px 7px 8px;
+  text-align: left;
+  line-height: 1.3em;
+  font-size: 14px;
+  font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+}
+#wolfnet-search-manager #savedsearches.wp-list-table {
+  width: 875px !important;
+}
 .ui-widget-overlay {
   background-repeat: repeat !important;
   /* fixing apparent bug with the jQuery UI theme */
@@ -153,6 +184,9 @@ html.ie .wolfnetProductKeyValidationWrapper.invalid input {
   padding: 0;
   font-style: italic;
   width: 100%;
+}
+input.input-placeholder {
+  color: #999;
 }
 .clearfix:before, .clearfix:after {
   content: "";
