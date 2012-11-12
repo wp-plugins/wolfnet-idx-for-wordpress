@@ -5,15 +5,15 @@
 Plugin Name:  WolfNet IDX for WordPress
 Plugin URI:   http://wordpress.wolfnet.com
 Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with any WordPress website.
-Version:      1.0.9
+Version:      1.0.11
 Author:       WolfNet Technologies, LLC.
 Author URI:   http://www.wolfnet.com
 
 / *********************************************************************************************** */
 
 /* Include and Initialize Class Autoloader */
-require_once( 'com/ajmichels/common/autoLoader.php' );
-com_ajmichels_common_autoLoader::getInstance( dirname( __FILE__ ) );
+require_once( 'com/greentiedev/phpCommon/autoLoader.php' );
+com_greentiedev_phpCommon_autoLoader::getInstance( dirname( __FILE__ ) );
 
 /**
  *
@@ -37,8 +37,8 @@ com_ajmichels_common_autoLoader::getInstance( dirname( __FILE__ ) );
  *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 class wolfnet
-extends com_ajmichels_wppf_bootstrap
-implements com_ajmichels_common_iSingleton
+extends com_greentiedev_wppf_bootstrap
+implements com_greentiedev_phpCommon_iSingleton
 {
 
 
@@ -58,8 +58,8 @@ implements com_ajmichels_common_iSingleton
 	/* PROPERTIES ******************************************************************************* */
 
 	public $majorVersion = '1.0';
-	public $minorVersion = '9';
-	public $version      = '1.0.9';
+	public $minorVersion = '11';
+	public $version      = '1.0.11';
 
 
 	/* CONSTRUCT PLUGIN ************************************************************************* */
@@ -102,7 +102,7 @@ implements com_ajmichels_common_iSingleton
 					'pluginMinorVersion' => $this->minorVersion,
 					'pluginVersion'      => $this->version
 					);
-		$this->sf = new com_ajmichels_phpSpring_bean_factory_default( $sfXml, array(), $sfProps );
+		$this->sf = new com_greentiedev_phpSpring_bean_factory_default( $sfXml, array(), $sfProps );
 		$this->sf->setParent( $this->wppf_serviceFactory );
 
 		$defaultUrl = $this->sf->getBean( 'DefaultWebServiceUrl' );
