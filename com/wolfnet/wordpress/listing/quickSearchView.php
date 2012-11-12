@@ -6,8 +6,8 @@
  * @package       com.wolfnet.wordpress
  * @subpackage    listing
  * @title         quickSearchView.php
- * @extends       com_ajmichels_wppf_abstract_view
- * @implements    com_ajmichels_wppf_interface_iView
+ * @extends       com_greentiedev_wppf_abstract_view
+ * @implements    com_greentiedev_wppf_interface_iView
  * @contributors  AJ Michels (aj.michels@wolfnet.com)
  * @version       1.0
  * @copyright     Copyright (c) 2012, WolfNet Technologies, LLC
@@ -29,8 +29,8 @@
  *
  */
 class com_wolfnet_wordpress_listing_quickSearchView
-extends com_ajmichels_wppf_abstract_view
-implements com_ajmichels_wppf_interface_iView
+extends com_greentiedev_wppf_abstract_view
+implements com_greentiedev_wppf_interface_iView
 {
 
 
@@ -86,6 +86,14 @@ implements com_ajmichels_wppf_interface_iView
 	{
 		$data['instanceId'] = uniqid( 'wolfnet_quickSearchForm_' );
 		$data['formAction'] = $this->getSettingsService()->getSiteBaseUrl();
+
+		/* Register WordPress filters for each variable being used in the view. (except the rawData) */
+		foreach ( $data as $key => $item ) {
+			if ( strpos( $key, 'rawData' ) === false ) {
+				$data[$key] = apply_filters( 'wolfnet_quickSearchView_' . $key, $item );
+			}
+		}
+
 		return parent::render( $data );
 	}
 
