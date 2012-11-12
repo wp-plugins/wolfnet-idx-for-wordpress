@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.4.1
-Stable tag:         1.0.10
+Stable tag:         1.0.11
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.0.11 =
+* Fixing bug and was already fixed but reverted some how.
 
 = 1.0.10 =
 * Added regular expression replacement to remove included jQuery source from search builder code. This fixes a bug caused by jQuery being included more than once.

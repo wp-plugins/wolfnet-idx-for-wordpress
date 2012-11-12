@@ -54,7 +54,9 @@ implements com_greentiedev_wppf_interface_iDataInterpreter
 
 		if ( $data != '' ) {
 			$rtnData = json_decode( $data, true );
-			$this->log( $this->getJsonError( json_last_error() ) );
+			if ( function_exists( 'json_last_error' ) ) {
+				$this->log( $this->getJsonError( json_last_error() ) );
+			}
 		}
 
 		if ( !is_array( $rtnData ) ) {
