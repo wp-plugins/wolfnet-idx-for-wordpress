@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.4.1
-Stable tag:         1.1.2
+Stable tag:         1.1.3
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.1.3 =
+* Updated to ensure that dynamic pages created by the plugin return the correct status code.
 
 = 1.1.2 =
 * Fixed bug with shortcode builder introduced in version 1.1.0.
