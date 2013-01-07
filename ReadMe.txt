@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.4.1
-Stable tag:         1.1.0
+Stable tag:         1.1.2
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,12 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.1.2 =
+* Fixed bug with shortcode builder introduced in version 1.1.0.
+
+= 1.1.1 =
+* Updated all plugin specific CSS classes to make sure they are prefixed to avoid conflicts.
 
 = 1.1.0 =
 * Exposed dynamic URLs which can be used to retrieve the header and footer of the wordpress site for use in wrapper a MLSFinder subdomain search solution.
