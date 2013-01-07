@@ -39,7 +39,7 @@
 
 	<?php echo ( isset($listingContent) ) ? $listingContent : 'No Listings to Display.'; ?>
 
-	<div class="clearfix"></div>
+	<div class="wolfnet_clearfix"></div>
 
 </div>
 
@@ -47,11 +47,11 @@
 
 	if ( typeof jQuery != 'undefined' ) {
 
-		( function ( $ ) {
+		jQuery( document ).ready( function () {
 
-			$( '#<?php echo $instanceId; ?>' ).wolfnetPropertyList({});
+			jQuery( '#<?php echo $instanceId; ?>' ).wolfnetPropertyList({});
 
-		} )( jQuery );
+		} );
 
 	}
 
