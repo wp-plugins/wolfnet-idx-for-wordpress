@@ -42,6 +42,9 @@ html body {
 .wp-admin .icon32#icon-options-wolfnet {
   height: 39px;
 }
+.wolfnet_tools_div {
+  display: table-cell;
+}
 .wolfnet_featuredListingsOptions form select, .wolfnet_listingGridOptions form select, .wolfnet_propertyListOptions form select {
   height: auto;
 }

@@ -87,7 +87,7 @@ extends com_greentiedev_phpCommon_abstractClass
 				else {
 					$url .= '&';
 				}
-				$url .= $parameter . '=' . $this->myUrlEncode( $value );
+				$url .= $parameter . '=' . $value;
 			}
 		}
 		return $url;
@@ -96,16 +96,6 @@ extends com_greentiedev_phpCommon_abstractClass
 	public function __toString ()
 	{
 		return $this->toString();
-	}
-
-
-	/* PRIVATE METHODS ************************************************************************** */
-
-	private function myUrlEncode ( $string )
-	{
-		$string = str_replace( '&amp;', '&', $string );
-		$string = urlencode( $string );
-		return $string;
 	}
 
 
@@ -141,7 +131,8 @@ extends com_greentiedev_phpCommon_abstractClass
 
 	public function setParameter ( $name, $value = '' )
 	{
-		$this->parameters[$name] = $value;
+
+		$this->parameters[$name] = urlencode( $value );
 	}
 
 

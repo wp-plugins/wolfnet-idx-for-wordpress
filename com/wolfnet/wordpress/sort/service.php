@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This class is the Market Disclaimer Service and is a Facade used to interact with all other
+ * This class is the sort Service and is a Facade used to interact with all other
  * market information.
  *
  * @package       com.wolfnet.wordpress
- * @subpackage    market.disclaimer
+ * @subpackage    sort
  * @title         service.php
  * @extends       com_greentiedev_wppf_abstract_service
  * @implements    com_greentiedev_wppf_interface_iService
@@ -28,9 +28,8 @@
  *                along with this program; if not, write to the Free Software
  *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- *
  */
-class com_wolfnet_wordpress_market_disclaimer_service
+class com_wolfnet_wordpress_sort_service
 extends com_greentiedev_wppf_abstract_service
 implements com_greentiedev_wppf_interface_iService
 {
@@ -116,32 +115,21 @@ implements com_greentiedev_wppf_interface_iService
 	 * @return  array    An array of listing objects (com_wolfnet_wordpress_listing_entity)
 	 *
 	 */
-	public function getDisclaimerByType ( $type = 'search_results' )
+	public function getSort ()
 	{
 
 		$wsu = $this->getWebServiceUrl();
+		$productKey = $this->getOptionManager()->getOptionValueFromWP( 'wolfnet_productKey' );
 
 		/* Cache for 24 hours */
 		$wsu->setCacheSetting( 1440 );
-		$productKey = $this->getOptionManager()->getOptionValueFromWP( 'wolfnet_productKey' );
-
-		$wsu->setScriptPath( '/marketDisclaimer/' . $productKey . '.json' );
-
-		$wsu->setParameter( 'type',  $type );
+		$wsu->setScriptPath( '/sortOptions/' . $productKey );
 
 		$this->log( (string) $wsu );
 
 		$data = $this->getDataService()->getData( $wsu );
 
-		if ( !array_key_exists( 'disclaimer', $data ) ) {
-			echo '<!-- WNT ERROR: The data returned from the remote service call is not valid disclaimer data. -->';
-			$data = array();
-		}
-		else {
-			$data = array( array( 'content' => $data['disclaimer'] ) );
-		}
-
-		$this->getDAO()->setData( $data );
+		$this->getDAO()->setData(  $data['sort_options'] );
 
 		return $this->getDAO()->findAll();
 

@@ -71,10 +71,21 @@ implements com_greentiedev_wppf_interface_iDataService
 		if ( $cacheSetting == 'never' || !$rawData = $this->resolveCachedData( (string) $url ) ) {
 
 			$this->log( array( 'Getting Fresh Data', (string) $url ) );
-			$httpResponse = wp_remote_get( (string) $url );
+			$httpResponse = wp_remote_get( (string) $url, array( 'timeout'=>180 ) );
 			$this->log( $httpResponse );
 
-			if ( is_wp_error( $httpResponse ) || $httpResponse['response']['code'] != '200' ) {
+			$this->log( array( "HTTP Request", (string) is_wp_error( $httpResponse ), $httpResponse ) );
+
+			/* There was a server side error so try to reuse the cached data. */
+			if ( is_wp_error( $httpResponse ) && $httpResponse['response']['code'] >= 500 ) {
+				$cacheSetting == 'never'; // There was an error on the remote end, so don't cache the response.
+				if ( !$rawData ) {
+				$rawData = '{"error":{"message":"A Connection Error Occured!","status":true'
+				         . ',"detail":"' . (string) $url . '"}}';
+				}
+			}
+			/* There was a client side error so return an error message and clear the cache. */
+			elseif ( is_wp_error( $httpResponse ) && $httpResponse['response']['code'] >= 400 ) {
 				/** TODO: Add support for XML formatted messages */
 				$rawData = '{"error":{"message":"A Connection Error Occured!","status":true'
 				         . ',"detail":"' . (string) $url . '"}}';

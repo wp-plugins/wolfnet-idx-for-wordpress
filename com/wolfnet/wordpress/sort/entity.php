@@ -4,7 +4,7 @@
  * This class is the Listing Entity and is a container for listing data.
  *
  * @package       com.wolfnet.wordpress
- * @subpackage    settings
+ * @subpackage    sort
  * @title         entity.php
  * @extends       com_greentiedev_wppf_abstract_entity
  * @implements    com_greentiedev_wppf_interface_iEntity
@@ -29,7 +29,7 @@
  *
  */
 
-class com_wolfnet_wordpress_settings_entity
+class com_wolfnet_wordpress_sort_entity
 extends com_greentiedev_wppf_abstract_entity
 implements com_greentiedev_wppf_interface_iEntity
 {
@@ -42,9 +42,15 @@ implements com_greentiedev_wppf_interface_iEntity
 	 * @type  string
 	 *
 	 */
-	private $SITE_BASE_URL = '';
-	private $max_results = 250;
+	private $value = '';
 
+	/**
+	 *
+	 *
+	 * @type  string
+	 *
+	 */
+	private $label = '';
 
 
 	/* PUBLIC METHODS *************************************************************************** */
@@ -55,13 +61,13 @@ implements com_greentiedev_wppf_interface_iEntity
 	 * ( see Memento Design Pattern )
 	 *
 	 * @param   array  $data  The primary key of a single listing.
-	 * @return  void
+	 * @return  vovalue
 	 *
 	 */
 	public function setMemento ( $data )
 	{
-		$this->SITE_BASE_URL = $data['SITE_BASE_URL'];	
-		$this->max_results = $data['SITE_TEXT']['Max Results'];
+		$this->value = $data['value'];
+		$this->label = $data['label'];
 	}
 
 
@@ -76,8 +82,8 @@ implements com_greentiedev_wppf_interface_iEntity
 	public function getMemento ()
 	{
 		return array(
-			'SITE_BASE_URL' => $this->SITE_BASE_URL,
-			'max_results' => $this->max_results,
+			'value' => $this->value,
+			'label' => $this->label
 			);
 	}
 
@@ -90,9 +96,9 @@ implements com_greentiedev_wppf_interface_iEntity
 	 * @return  string
 	 *
 	 */
-	public function getSITE_BASE_URL ()
+	public function getValue ()
 	{
-		return $this->SITE_BASE_URL;
+		return $this->value;
 	}
 
 	/**
@@ -101,10 +107,10 @@ implements com_greentiedev_wppf_interface_iEntity
 	 * @return  string
 	 *
 	 */
-	public function getMaxResults ()
+	public function getLabel ()
 	{
-		return $this->max_results;
+		return $this->label;
 	}
 
-}
 
+}

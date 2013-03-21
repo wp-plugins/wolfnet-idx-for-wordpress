@@ -6,7 +6,7 @@
  * event that the method used for data i/o is changed.
  *
  * @package       com.wolfnet.wordpress
- * @subpackage    market.disclaimer
+ * @subpackage    sort
  * @title         dao.php
  * @extends       com_greentiedev_wppf_abstract_dao
  * @implements    com_greentiedev_wppf_interface_iDao
@@ -31,7 +31,7 @@
  *
  *
  */
-class com_wolfnet_wordpress_market_disclaimer_dao
+class com_wolfnet_wordpress_sort_dao
 extends com_greentiedev_wppf_abstract_dao
 implements com_greentiedev_wppf_interface_iDao
 {
@@ -65,11 +65,6 @@ implements com_greentiedev_wppf_interface_iDao
 
 	/* PROPERTIES ******************************************************************************* */
 
-	/**
-	 * @type  com_wolfnet_wordpress_listing_branding_dao
-	 */
-	private $brandingDao;
-
 
 	/* CONSTRUCTOR METHOD *********************************************************************** */
 
@@ -82,7 +77,7 @@ implements com_greentiedev_wppf_interface_iDao
 	 */
 	private function __construct ()
 	{
-		$this->log( 'Init com_wolfnet_wordpress_market_disclaimer_dao' );
+		$this->log( 'Init com_wolfnet_wordpress_sort_dao' );
 	}
 
 
@@ -96,27 +91,21 @@ implements com_greentiedev_wppf_interface_iDao
 	 */
 	public function findAll ()
 	{
-		$disclaimers          = array();
-		$disclaimerPrototype = $this->getEntityPrototype();
-		$data                = $this->getData();
-		if ( is_array($data) && count($data) > 0 ) {
-			foreach ($data as $disclaimerData) {
-				$disclaimer = clone $disclaimerPrototype;
-				$disclaimer->setMemento( $disclaimerData );
+		$sortArray     = array ();
+		$sortPrototype = $this->getEntityPrototype();
+		$data              = $this->getData();
+ 	
+		if ( is_array( $data ) && count( $data ) > 0 ) {
+			foreach ( $data as $sortData ) {
+				$sort = clone $sortPrototype;
+				$sort->setMemento( $sortData );
 				// Push Object to Array
-				array_push($disclaimers, $disclaimer);
+				array_push($sortArray, $sort);
 			}
 
 		}
 
-		if ( count( $disclaimers ) > 0 ) {
-			return $disclaimers[0];
-		}
-		else {
-			return $disclaimerPrototype;
-		}
-
-
+		return $sortArray;
 	}
 
 

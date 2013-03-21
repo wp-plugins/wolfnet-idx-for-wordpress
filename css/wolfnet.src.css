@@ -73,14 +73,6 @@
 .wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form input.hintText, .wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form select.hintText {
   color: #888;
 }
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_searchType,
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_searchTypeField,
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_widgetPrice,
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_widgetBeds,
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_widgetBaths,
-.wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_quickSearchFormButton {
-  width: 100%;
-}
 .wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form ul.wolfnet_searchType {
   margin: 0;
   padding: 0 0 1.5em 0;
@@ -115,7 +107,6 @@
 .wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_quickSearchFormButton {
   margin-top: .3em;
   clear: both;
-  height: 2.5em;
 }
 .wolfnet_widget.wolfnet_quickSearch .wolfnet_quickSearch_form .wolfnet_quickSearchFormButton button {
   font-size: 1.6em;
@@ -401,4 +392,7 @@
 
   float: none !important;
   clear: both;
+}
+.wntToolbars {
+  font-size: 10px!important;
 }
