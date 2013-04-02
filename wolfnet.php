@@ -5,14 +5,14 @@
 Plugin Name:  WolfNet IDX for WordPress
 Plugin URI:   http://wordpress.wolfnet.com
 Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with any WordPress website.
-Version:      1.3.2
+Version:      1.3.3
 Author:       WolfNet Technologies, LLC.
 Author URI:   http://www.wolfnet.com
 
 / *********************************************************************************************** */
 
 /* Include and Initialize Class Autoloader */
-require_once( 'com/greentiedev/phpCommon/autoLoader.php' );
+require_once( dirname(__FILE__) . '/com/greentiedev/phpCommon/autoLoader.php' );
 com_greentiedev_phpCommon_autoLoader::getInstance( dirname( __FILE__ ) );
 
 /**
@@ -58,8 +58,8 @@ implements com_greentiedev_phpCommon_iSingleton
 	/* PROPERTIES ******************************************************************************* */
 
 	public $majorVersion = '1.3';
-	public $minorVersion = '2';
-	public $version      = '1.3.2';
+	public $minorVersion = '3';
+	public $version      = '1.3.3';
 
 
 	/* CONSTRUCT PLUGIN ************************************************************************* */
