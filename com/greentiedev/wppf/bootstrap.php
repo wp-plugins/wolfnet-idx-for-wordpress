@@ -79,14 +79,6 @@ extends com_greentiedev_phpCommon_abstractClass
 		add_action( 'admin_init',   array( &$this, 'wppf_adminInit' ) );
 		add_action( 'shutdown',     array( &$this, 'wppf_shutdown' ) );
 
-		/* if the url parameter 'clearCache' is passed clear the data cache */
-		if ( array_key_exists( 'clearCache', $_REQUEST ) ) {
-			$dataService = $this->wppf_serviceFactory->getBean( 'XmlDataService' );
-			$dataService->clearCache();
-			$dataService = $this->wppf_serviceFactory->getBean( 'JsonDataService' );
-			$dataService->clearCache();
-		}
-
 	}
 
 

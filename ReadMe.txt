@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.5.1
-Stable tag:         1.3.3
+Stable tag:         1.3.11
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,18 +45,44 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 == Changelog ==
 
+= 1.3.11 =
+* Added SEO support for pagination. Pages can now be viewed even when JavaScript is unavailable/disabled.
+* Updated the order of address information and added postal code.
+
+= 1.3.10 =
+* Fixing minor bug causing scripts to be included more than once on search solutions.
+
+= 1.3.9 =
+* Fixed a similar issue to that in 1.3.8 which was impacting the search manager and the key validation.
+
+= 1.3.8 =
+* Fixed issue with shortcode builder causing problems with multi-site wordpress installs.
+
+= 1.3.7 =
+* Fixed a bug in the "toolbar" JavaScript which caused HTML content to be escaped.
+* Restructured parts of the "toolbar" JavaScript for performance.
+
+= 1.3.6 =
+* Fixed minor JavaScript bug.
+
+= 1.3.5 =
+* Updated to new version of WPPF with caching strategy that uses the WordPress Transient API instead of flat files.
+
+= 1.3.4 =
+* Fixed bug with HTTP User-Agents getting caught by MLSFinder mobile browser detection.
+
 = 1.3.3 =
-* Updated styles and some javascript improve appearance of controls.
+* Updated styles and some JavaScript improve appearance of controls.
 * Implemented option to enable sort options. It is now disabled by default.
 
 = 1.3.0 =
 * Fixing bug with search manager saving and deleting functionality.
 * Updated API calls to explicitly include .json file type.
 * Updated wppf code and other service code to avoid caching data if there is a server side error.
-* Added wnt class to the html tag on dynamic content pages, for easier styling integration with MLSFinder search solutions.
+* Added WNT class to the HTML tag on dynamic content pages, for easier styling integration with MLSFinder search solutions.
 * Updated to perform ajax key validation against plugin exposed endpoint rather than calling the WolfNet API directly.
 * Increased timeout for remote call to 3 minutes.
-* Re-wrote shortcode builder javascript
+* Re-wrote shortcode builder JavaScript
 * Removed a couple styles which were causing issues in IE7.
 * Introduced pagination feature to Listing Grid and Property List.
 
@@ -73,7 +99,7 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 * Updated all plugin specific CSS classes to make sure they are prefixed to avoid conflicts.
 
 = 1.1.0 =
-* Exposed dynamic URLs which can be used to retrieve the header and footer of the wordpress site for use in wrapper a MLSFinder subdomain search solution.
+* Exposed dynamic URLs which can be used to retrieve the header and footer of the WordPress site for use in wrapper a MLSFinder sub-domain search solution.
 
 = 1.0.12 =
 * Fixing bug with & special character in query strings.

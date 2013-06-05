@@ -251,7 +251,8 @@
   margin: 2em 0 1.75em 0;
 }
 .wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_toolbarBottom, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_toolbarBottom {
-  margin: 1.75em 0 2em 0;
+  margin: 0 0 2em 0;
+  padding: 1.75em 0 0 0;
 }
 .wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_withPagination.wolfnet_withSortOptions, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_withPagination.wolfnet_withSortOptions {
   height: 3em;
@@ -398,6 +399,10 @@
 }
 .wolfnet_widget.wolfnet_propertyList .wolfnet_listing .wolfnet_price {
   float: right;
+}
+.wolfnet_widget.wolfnet_propertyList .wolfnet_listing > a {
+  display: block;
+  clear: both;
 }
 .wolfnet_widget .wolfnet_marketDisclaimer {
   clear: both;

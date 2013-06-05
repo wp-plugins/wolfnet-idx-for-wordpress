@@ -33,7 +33,6 @@ implements com_greentiedev_wppf_interface_iDataService
 
 	/* PROPERTIES ******************************************************************************* */
 
-	private $cacheDir;
 	private $cacheTime;
 	private $clearCache = false;
 
@@ -48,7 +47,9 @@ implements com_greentiedev_wppf_interface_iDataService
 		if ( !isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
+
 		return self::$instance;
+
 	}
 
 
@@ -56,8 +57,19 @@ implements com_greentiedev_wppf_interface_iDataService
 
 	private function __construct ()
 	{
-		$this->setCacheDir( $this->formatPath( dirname(__FILE__) . '/cache/' ) );
+		// Set the default cache time.
 		$this->setCacheTime( 15 );
+
+		if ( array_key_exists( '-clearcache', $_REQUEST ) ) {
+			if ( $_REQUEST['-clearcache'] == 'all' && !array_key_exists( 'wppf_cachecleared', $_REQUEST ) ) {
+				$_REQUEST['wppf_cachecleared'] = true;
+				$this->clearEntireCache();
+			}
+			else {
+				$this->setClearCache( true );
+			}
+		}
+
 	}
 
 
@@ -67,28 +79,46 @@ implements com_greentiedev_wppf_interface_iDataService
 	{
 		$cacheSetting = $url->getCacheSetting();
 
+		$cacheData    = $this->resolveCachedData( (string) $url );
+		$rawData      = ( $cacheData !== false ) ? $cacheData['data'] : false ;
+		$cacheExpired = ( $cacheData !== false ) ? $cacheData['expired'] : false ;
 
-		if ( $cacheSetting == 'never' || !$rawData = $this->resolveCachedData( (string) $url ) ) {
+		if ( $cacheSetting == 'never' || $rawData === false || $cacheExpired ) {
 
 			$this->log( array( 'Getting Fresh Data', (string) $url ) );
+
 			$httpResponse = wp_remote_get( (string) $url, array( 'timeout'=>180 ) );
-			$this->log( $httpResponse );
 
 			$this->log( array( "HTTP Request", (string) is_wp_error( $httpResponse ), $httpResponse ) );
 
 			/* There was a server side error so try to reuse the cached data. */
-			if ( is_wp_error( $httpResponse ) && $httpResponse['response']['code'] >= 500 ) {
-				$cacheSetting == 'never'; // There was an error on the remote end, so don't cache the response.
-				if ( !$rawData ) {
-				$rawData = '{"error":{"message":"A Connection Error Occured!","status":true'
-				         . ',"detail":"' . (string) $url . '"}}';
+			if ( !is_wp_error( $httpResponse ) && $httpResponse['response']['code'] >= 500 ) {
+
+				$cacheSetting = 'never'; // There was an error on the remote end, so don't cache the response.
+
+				if ( $rawData === false ) {
+					/** TODO: Add support for XML formatted messages */
+					$rawData = '{"error":{"message":"A Connection Error Occured!","status":true'
+					         . ',"detail":"' . (string) $url . '"}}';
 				}
+				else {
+					$this->log( array( "Reusing Existing Cached Data because there was an error.", (string) $url ) );
+				}
+
+				print('<!-- WPPF ERROR: Data retrieval error. There was a 500 error on the remote server. -->');
+
 			}
 			/* There was a client side error so return an error message and clear the cache. */
-			elseif ( is_wp_error( $httpResponse ) && $httpResponse['response']['code'] >= 400 ) {
+			elseif ( is_wp_error( $httpResponse ) || $httpResponse['response']['code'] >= 400 ) {
+
+				$cacheSetting = 'never'; // There was an error on the remote end, so don't cache the response.
+
 				/** TODO: Add support for XML formatted messages */
 				$rawData = '{"error":{"message":"A Connection Error Occured!","status":true'
 				         . ',"detail":"' . (string) $url . '"}}';
+
+				print('<!-- WPPF ERROR: Data retrieval error. Failed to connect to the remote server. -->');
+
 			}
 			else {
 				$rawData = $httpResponse['body'];
@@ -101,42 +131,102 @@ implements com_greentiedev_wppf_interface_iDataService
 
 		}
 		else {
-			$this->log( array( 'Getting Cached Data', (string) $url, $this->getCachedFileName( (string) $url ) ) );
+			$this->log( array( 'Getting Cached Data', (string) $url, $this->getCacheKey( (string) $url ) ) );
 		}
 
 		$data = $this->getDataInterpreter()->parse( $rawData );
 
 		return $data;
-	}
 
-
-	public function clearCache ()
-	{
-		if ( file_exists( $this->getCacheDir() ) ) {
-			$this->deleteDir( $this->getCacheDir() );
-		}
 	}
 
 
 	/* PRIVATE METHODS ************************************************************************** */
 
-
 	private function resolveCachedData ( $url )
 	{
-		$clearCache  = $this->getClearCache();
+		if ( $this->getClearCache() ) {
+			$this->clearCache( $url );
+			return false;
+		}
+		else {
+			$metaData = $this->getCacheMetaData();
+			$cacheKey = $this->getCacheKey( $url );
 
-		if ( $clearCache ) {
-			$this->clearCache();
+			if ( is_array($metaData) && array_key_exists( $cacheKey, $metaData ) ) {
+				$data = array(
+					'data'    => get_transient( $cacheKey ),
+					'expired' => ( time() > $metaData[$cacheKey] )
+					);
+				return $data;
+			}
+			else {
+				return false;
+			}
 		}
 
-		$cacheFile   = $this->getCacheDir() . $this->getCachedFileName( $url );
-		$fileExists  = file_exists( $cacheFile );
-		$cacheTime   = $this->getCacheTime();
-		$currentTime = time();
-		$expireTime  = $currentTime - ( $cacheTime * 60 );
+	}
 
-		if ( $fileExists && $expireTime < filemtime( $cacheFile ) ) {
-			return file_get_contents( $cacheFile );
+
+	private function establishCachedData ( $url, $rawData )
+	{
+		$metaData            = $this->getCacheMetaData();
+		$cacheKey            = $this->getCacheKey( $url );
+		$cacheTime           = $this->getCacheTime();
+
+		if ( is_numeric( $cacheTime ) && $cacheTime > 0 ) {
+
+			$metaData[$cacheKey] = time() + ( $cacheTime * 60 );
+
+			$this->log( array( 'Saving Cache Data', $cacheKey, $cacheTime ) );
+
+			// WordPress Transient API
+			set_transient( $this->getCacheKey( $url ), $rawData, 0 );
+
+			$this->setCacheMetaData( $metaData );
+
+		}
+
+	}
+
+
+	private function getCacheKey ( $url )
+	{
+		$diClass = get_class( $this->getDataInterpreter() );
+		$hash    = md5( $url . $diClass );
+		$key     = $hash;
+
+		return $key;
+
+	}
+
+
+	private function getCacheMetaData ()
+	{
+
+		return get_transient( 'wppf_cache_metadata' );
+
+	}
+
+
+	private function setCacheMetaData ( $data )
+	{
+
+		set_transient( 'wppf_cache_metadata', $data, 0 );
+
+	}
+
+
+	private function clearCache ( $url )
+	{
+		$metaData = $this->getCacheMetaData();
+		$cacheKey = $this->getCacheKey( $url );
+
+		if ( is_array($metaData) && array_key_exists( $cacheKey, $metaData ) ) {
+			$this->log( array( 'Clearing Cache', $cacheKey ) );
+			unset( $metaData[$cacheKey] );
+			$this->setCacheMetaData( $metaData );
+			delete_transient( $cacheKey );
 		}
 		else {
 			return false;
@@ -145,76 +235,53 @@ implements com_greentiedev_wppf_interface_iDataService
 	}
 
 
-	private function establishCachedData ( $url, $rawData )
+	private function clearEntireCache ()
 	{
-		$cacheTime = $this->getCacheTime();
+		$metaData = $this->getCacheMetaData();
 
-		if ( $cacheTime > 0 ) {
-
-			$cacheFilename = $this->getCacheDir() . $this->getCachedFileName( $url );
-
-			$this->log( $cacheFilename );
-
-			if ( file_exists( $this->getCacheDir() ) ) {
-				if ( file_exists( $cacheFilename ) ) {
-					unlink( $cacheFilename );
-				}
+		if ( is_array($metaData) ) {
+			$this->log( "Clearing Entire Cache" );
+			foreach ( $metaData as $key => $data ) {
+				delete_transient( $key );
 			}
-			else {
-				mkdir( $this->getCacheDir() );
-			}
-
-			$cacheFile    = fopen(  $cacheFilename, 'x' );
-			$writeResults = fwrite( $cacheFile, $rawData );
-			                fclose( $cacheFile );
-
 		}
 
-	}
+		$this->setCacheMetaData( array() );
 
-
-	private function getCachedFileName ( $url )
-	{
-		$diClass = get_class( $this->getDataInterpreter() );
-		$hash = md5( $url . $diClass );
-		$filename = $hash . '.tmp';
-		return $filename;
 	}
 
 
 	/* ACCESSOR METHODS ************************************************************************* */
 
-	private function getCacheDir ()
-	{
-		return $this->cacheDir;
-	}
-
-
-	private function setCacheDir ( $path )
-	{
-		$this->cacheDir = $path;
-	}
-
 	public function getCacheTime ()
 	{
+
 		return $this->cacheTime;
+
 	}
 
 
 	public function setCacheTime ( $minutes )
 	{
+
 		$this->cacheTime = $minutes;
+
 	}
+
 
 	public function getClearCache ()
 	{
+
 		return $this->clearCache;
+
 	}
 
 
 	public function setClearCache ( $clear )
 	{
+
 		$this->clearCache = $clear;
+
 	}
 
 
@@ -222,6 +289,7 @@ implements com_greentiedev_wppf_interface_iDataService
 	{
 
 		return $this->dataInterpreter;
+
 	}
 
 
@@ -229,6 +297,7 @@ implements com_greentiedev_wppf_interface_iDataService
 	{
 
 		$this->dataInterpreter = $di;
+
 	}
 
 
