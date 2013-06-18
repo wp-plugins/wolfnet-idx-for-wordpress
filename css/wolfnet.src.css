@@ -347,16 +347,14 @@
 }
 .wolfnet_widget.wolfnet_featuredListings .scrollingHotSpotLeft {
   left: 0;
-  /* The first url is for Firefox and other browsers, the second is for Internet Explorer */
-
-  cursor: url('../img/cursor_arrow_left.png'), url('../img/cursor_arrow_left.cur'), w-resize;
+  cursor: default;
 }
 .wolfnet_widget.wolfnet_featuredListings .scrollingHotSpotLeftVisible {
   background-image: url('../img/arrow_left.gif');
 }
 .wolfnet_widget.wolfnet_featuredListings .scrollingHotSpotRight {
   right: 0;
-  cursor: url('../img/cursor_arrow_right.png'), url('../img/cursor_arrow_right.cur'), e-resize;
+  cursor: default;
 }
 .wolfnet_widget.wolfnet_featuredListings .scrollingHotSpotRightVisible {
   background-image: url('../img/arrow_right.gif');
