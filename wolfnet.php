@@ -5,7 +5,7 @@
 Plugin Name:  WolfNet IDX for WordPress
 Plugin URI:   http://wordpress.wolfnet.com
 Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with any WordPress website.
-Version:      1.3.13
+Version:      1.3.14
 Author:       WolfNet Technologies, LLC.
 Author URI:   http://www.wolfnet.com
 
@@ -58,8 +58,8 @@ implements com_greentiedev_phpCommon_iSingleton
 	/* PROPERTIES ******************************************************************************* */
 
 	public $majorVersion = '1.3';
-	public $minorVersion = '13';
-	public $version      = '1.3.13';
+	public $minorVersion = '14';
+	public $version      = '1.3.14';
 
 
 	/* CONSTRUCT PLUGIN ************************************************************************* */
@@ -135,9 +135,10 @@ implements com_greentiedev_phpCommon_iSingleton
 	/* Register Actions with the Action Manager */
 	protected function actions ()
 	{
-		$this->am->register( $this->sf->getBean( 'RegisterRewriteRules' ),      array( 'init' ) );
-		$this->am->register( $this->sf->getBean( 'RegisterCustomPostTypes' ),   array( 'init' ) );
-		$this->am->register( $this->sf->getBean( 'AddShortcodeBuilderButton' ), array( 'admin_init' ) );
+        $this->am->register( $this->sf->getBean( 'RegisterRewriteRules' ),      array( 'init' ) );
+        $this->am->register( $this->sf->getBean( 'RegisterCustomPostTypes' ),   array( 'init' ) );
+        $this->am->register( $this->sf->getBean( 'PreGetPosts' ),               array( 'pre_get_posts' ) );
+        $this->am->register( $this->sf->getBean( 'AddShortcodeBuilderButton' ), array( 'admin_init' ) );
 		$this->am->register( $this->sf->getBean( 'EnqueueResources' ),          array( 'wp_enqueue_scripts' ) );
 		$this->am->register( $this->sf->getBean( 'CreateAdminPages' ),          array( 'admin_menu' ) );
 		$this->am->register( $this->sf->getBean( 'RegisterWidgets' ),           array( 'widgets_init' ) );

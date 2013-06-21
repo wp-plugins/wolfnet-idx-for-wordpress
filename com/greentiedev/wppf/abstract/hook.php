@@ -36,6 +36,7 @@ extends com_greentiedev_phpCommon_abstractClass
 	private $isAction = false;
 	private $isFilter = false;
 	private $hookName = '';
+    protected $arguments = array();
 
 
 	/* CONSTRUCTOR METHOD *********************************************************************** */
@@ -64,14 +65,16 @@ extends com_greentiedev_phpCommon_abstractClass
 	final public function _execute ()
 	{
 
+        $this->arguments = func_get_args();
+
 		if ( $this->isAction ) {
-			do_action( $this->getPlugin()->getClassName() . '_' . 'pre_' . $this->hookName );
+			do_action( $this->getPlugin()->getClassName() . '_pre_' . $this->hookName );
 		}
 
 		$this->execute();
 
 		if ( $this->isAction ) {
-			do_action( $this->getPlugin()->getClassName() . '_' . 'post_' . $this->hookName );
+			do_action( $this->getPlugin()->getClassName() . '_post_' . $this->hookName );
 		}
 
 	}
