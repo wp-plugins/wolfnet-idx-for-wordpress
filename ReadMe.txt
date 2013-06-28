@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.5.1
-Stable tag:         1.3.14
+Stable tag:         1.3.15
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.3.15 =
+* Updating pagination URL to be relative to the root of the site rather than the current page.
 
 = 1.3.14 =
 * Updates to resolve issues with Brandco theme architecture.
