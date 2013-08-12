@@ -3,8 +3,8 @@ Author:             WolfNet Technologies, LLC
 Contributors:       wolfnettech, ajmichels, asbaumgart
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
-Tested up to:       3.5.1
-Stable tag:         1.3.15
+Tested up to:       3.6.0
+Stable tag:         1.3.17
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,19 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.3.17 =
+* Added maximum transient expiration date to prevent unnecessarily stale data from congesting the database.
+* Added an activation hook which removes legacy transient data from older plugin versions.
+* Added a deactivation hook which removes transient data to clean the database if the plugin is disabled.
+
+= 1.3.16 =
+* Major rearchitechure of the plugin code.
+    * Removed third-party PHP libraries and Framework code.
+    * Consolidated most code into wolfnet.php file.
+* Updated Ajax requests to use built in WordPress Ajax hooks.
+* Changed plugin URI to WordPress.org location
+* Fixed CSS issue with shortcode builder dialog window on WordPress 3.6
 
 = 1.3.15 =
 * Updating pagination URL to be relative to the root of the site rather than the current page.
@@ -126,20 +139,20 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 * Added regular expression replacement to remove included jQuery source from search builder code. This fixes a bug caused by jQuery being included more than once.
 * Fixed CSS issue with Property List causing price and address to be on different lines in some browsers.
 * Added the following WordPress filters which will effect the display for all listing displays and instances of the quick search:
-	* wolfnet_listingView_id
-	* wolfnet_listingView_url
-	* wolfnet_listingView_address
-	* wolfnet_listingView_address_full
-	* wolfnet_listingView_image
-	* wolfnet_listingView_price
-	* wolfnet_listingView_location
-	* wolfnet_listingView_fullLocation
-	* wolfnet_listingView_bedbath
-	* wolfnet_listingView_bedbath_full
-	* wolfnet_listingView_branding_brokerLogo
-	* wolfnet_listingView_branding_content
-	* wolfnet_listingView_listing_class
-	* wolfnet_quickSearchView_formAction
+    * wolfnet_listingView_id
+    * wolfnet_listingView_url
+    * wolfnet_listingView_address
+    * wolfnet_listingView_address_full
+    * wolfnet_listingView_image
+    * wolfnet_listingView_price
+    * wolfnet_listingView_location
+    * wolfnet_listingView_fullLocation
+    * wolfnet_listingView_bedbath
+    * wolfnet_listingView_bedbath_full
+    * wolfnet_listingView_branding_brokerLogo
+    * wolfnet_listingView_branding_content
+    * wolfnet_listingView_listing_class
+    * wolfnet_quickSearchView_formAction
 * Switched framework code to newly re-branded GreenTie Development code.
 
 = 1.0.9 =
