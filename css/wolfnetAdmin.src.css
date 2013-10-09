@@ -3,9 +3,7 @@
  *
  * @package       css
  * @title         wolfnetAdmin.less
- * @contributors  AJ Michels (aj.michels@wolfnet.com)
- * @version       1.0
- * @copyright     Copyright (c) 2012, WolfNet Technologies, LLC
+ * @copyright     Copyright (c) 2012, 2013, WolfNet Technologies, LLC
  *
  *                This program is free software; you can redistribute it and/or
  *                modify it under the terms of the GNU General Public License
@@ -224,4 +222,22 @@ input.input-placeholder {
 }
 .wolfnet_dialog {
   z-index: 400000 !important;
+}
+.wolfnet_cssBox {
+  width: 700px;
+  height: 400px;
+}
+.wolfnet_note {
+  font-size: .95em;
+  padding: 2px;
+  margin: 0;
+  color: #5e5e5e;
+}
+.form-table th.wolfnet_cssLabel {
+  padding: 15px 0 0 10px;
+  font-weight: bold;
+}
+.wolfnet_sup {
+  vertical-align: top;
+  font-size: 90%;
 }

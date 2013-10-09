@@ -5,9 +5,27 @@
  * Plugin URI:   http://wordpress.org/plugins/wolfnet-idx-for-wordpress
  * Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with
  *               any WordPress website.
- * Version:      1.3.19
+ * Version:      1.4.0
  * Author:       WolfNet Technologies, LLC.
  * Author URI:   http://www.wolfnet.com
+ *
+ *
+ * @title         wolfnet.php
+ * @copyright     Copyright (c) 2012, 2013, WolfNet Technologies, LLC
+ *
+ *                This program is free software; you can redistribute it and/or
+ *                modify it under the terms of the GNU General Public License
+ *                as published by the Free Software Foundation; either version 2
+ *                of the License, or (at your option) any later version.
+ *
+ *                This program is distributed in the hope that it will be useful,
+ *                but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *                GNU General Public License for more details.
+ *
+ *                You should have received a copy of the GNU General Public License
+ *                along with this program; if not, write to the Free Software
+ *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 class wolfnet
@@ -28,7 +46,7 @@ class wolfnet
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    private $version              = '1.3.19';
+    private $version              = '1.4.0';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
@@ -36,6 +54,13 @@ class wolfnet
      * @var string
      */
     private $optionGroup          = 'wolfnet';
+
+    /**
+     * This property is used to set the option group for the Edit Css page. It creates a namespaced
+     * collection of variables which are used in saving page settings.
+     * @var string
+     */
+    private $CssOptionGroup          = 'wolfnetCss';
 
     /**
      * This property is used to define the 'search' custom type which is how "Search Manager"
@@ -50,6 +75,18 @@ class wolfnet
      * @var string
      */
     private $productKeyOptionKey  = 'wolfnet_productKey';
+
+    /**
+     * This property contains the public CSS as defined in the Edit CSS page.
+     * @var string
+     */
+    private $publicCssOptionKey = "wolfnetCss_publicCss";
+
+    /**
+     * This property contains the admin CSS as defined in the Edit CSS page.
+     * @var string
+     */
+    private $adminCssOptionKey = "wolfnetCss_adminCss";
 
     /**
      * This property is a unique identifier for a value in the WordPress Transient API where
@@ -127,6 +164,8 @@ class wolfnet
             array('widgets_init',          'widgetInit'),
             array('wp_footer',             'footer'),
             array('template_redirect',     'templateRedirect'),
+            array('admin_print_styles',    'adminPrintStyles',  1000),
+            array('wp_enqueue_scripts',    'publicStyles',      1000),
             ));
 
         // Register filters.
@@ -256,6 +295,27 @@ class wolfnet
 
 
     /**
+     * This method is a callback for the 'wp_enqueue_scripts' hook. This will load CSS files
+     * which are needed for the plugin after all the other CSS includes in the even that we
+     * need to override styles.
+     * @return void
+     */
+    public function publicStyles() {
+        if(strlen($this->getPublicCss())) {
+            $styles = array(
+                'wolfnet-custom',
+            );
+
+            foreach ($styles as $style) {
+                wp_enqueue_style($style);
+            }
+
+            do_action($this->postHookPrefix . 'enqueueResources'); // Legacy hook
+        }
+    }
+
+
+    /**
      * This method is a callback for the 'widgets_init' hook. All widgets for the plugin are
      * registered in this method.
      * @return void
@@ -292,6 +352,8 @@ class wolfnet
 
         // Register Options
         register_setting($this->optionGroup, $this->productKeyOptionKey);
+        register_setting($this->CssOptionGroup, $this->publicCssOptionKey);
+        register_setting($this->CssOptionGroup, $this->adminCssOptionKey);
 
         // Register Shortcode Builder Button
         $canEditPosts = current_user_can('edit_posts');
@@ -317,7 +379,7 @@ class wolfnet
 
         $pgs = array(
             array(
-                'title' => 'WolfNet',
+                'title' => 'WolfNet <span class="wolfnet_sup">&reg;</span>',
                 'key'   => 'wolfnet_plugin_settings',
                 'icon'  => $this->url . 'img/wp_wolfnet_nav.png',
                 ),
@@ -326,6 +388,11 @@ class wolfnet
                 'key'   => 'wolfnet_plugin_settings',
                 'cb'    => array(&$this, 'amSettingsPage')
                 ),
+            array(
+                'title' => 'Edit CSS',
+                'key'   => 'wolfnet_plugin_css',
+                'cb'    => array(&$this, 'amEditCssPage')
+            ),
             array(
                 'title' => 'Search Manager',
                 'key'   => 'wolfnet_plugin_search_manager',
@@ -502,6 +569,16 @@ class wolfnet
     }
 
 
+    /**
+     * This method is used in the context of admin_print_styles to output custom CSS.
+     * @return void
+     */
+    public function adminPrintStyles() {
+        $adminCss = $this->getAdminCss();
+        echo '<style>' . $adminCss . '</style>';
+    }
+
+
     /* Custom Post Types ************************************************************************ */
     /*  _                         _              ___                                              */
     /* /       _ _|_  _  ._ _    |_) _   _ _|_    |    ._   _   _                                 */
@@ -579,6 +656,14 @@ class wolfnet
         $productKey = $this->getProductKey();
         include 'template/adminSettings.php';
 
+    }
+
+
+    public function amEditCssPage() {
+        ob_start(); settings_fields($this->CssOptionGroup); $formHeader = ob_get_clean();
+        $publicCss = $this->getPublicCss();
+        $adminCss = $this->getAdminCss();
+        include 'template/adminEditCss.php';
     }
 
 
@@ -827,12 +912,34 @@ class wolfnet
 
     public function remoteListingsGet()
     {
+        $callback = (array_key_exists('callback', $_REQUEST)) ? $_REQUEST['callback'] : false;
         $args = $this->getListingGridOptions($_REQUEST);
 
+        if ($callback) {
+            header('Content-Type: application/javascript');
+        }
+        else {
+            header('Content-Type: application/json');
+        }
+
+        echo $callback ? $callback . '(' : '';
         echo json_encode($this->getListings($args));
+        echo $callback ? ');' : '';
 
         die;
 
+    }
+
+
+    public function remotePublicCss() {
+        header('Content-type: text/css');
+        $publicCss = $this->getPublicCss();
+
+        if(strlen($publicCss) > 0) {
+            echo $publicCss;
+        }
+
+        die;
     }
 
 
@@ -1598,7 +1705,7 @@ class wolfnet
         }
 
         $restrictedParams = array('criteria','toolbarTop','toolbarBottom','listingsHtml','prevLink',
-            'nextLink','prevClass','nextClass','toolbarClass','instance_id','siteUrl','class');
+            'nextLink','prevClass','nextClass','toolbarClass','instance_id','siteUrl','class','_');
 
         $restrictedSuffix = array('_wpid', '_wpname', '_wps', '_wpc');
 
@@ -1650,8 +1757,17 @@ class wolfnet
 
     private function getProductKey()
     {
-        return get_option($this->productKeyOptionKey);
+        return get_option(trim($this->productKeyOptionKey));
+    }
 
+
+    private function getPublicCss() {
+        return get_option(trim($this->publicCssOptionKey));
+    }
+
+
+    private function getAdminCss() {
+        return get_option($this->adminCssOptionKey);
     }
 
 
@@ -2039,20 +2155,24 @@ class wolfnet
     }
 
 
-    private function addAction($action, $callable=null)
+    private function addAction($action, $callable=null, $priority=null)
     {
         if (is_array($action)) {
             foreach ($action as $act) {
-                $this->addAction($act[0], $act[1]);
+                if(count($act) == 2) {
+                    $this->addAction($act[0], $act[1]);
+                } else {
+                    $this->addAction($act[0], $act[1], $act[2]);
+                }
             }
         }
         else {
             if (is_callable($callable)) {
-                add_action($action, $callable);
+                add_action($action, $callable, $priority);
             }
             else if (is_string($callable) && method_exists($this, $callable)) {
                 do_action($this->preHookPrefix . $callable);
-                add_action($action, array(&$this, $callable));
+                add_action($action, array(&$this, $callable), $priority);
                 do_action($this->postHookPrefix . $callable);
             }
         }
@@ -2235,6 +2355,9 @@ class wolfnet
             'wolfnet-admin' => array(
                 $this->url . 'css/wolfnetAdmin.min.css',
                 ),
+            'wolfnet-custom' => array(
+                admin_url('admin-ajax.php') . '?action=wolfnet_css',
+                ),
             'jquery-ui' => array(
                 'http://ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_ui->ver
                     . '/themes/smoothness/jquery-ui.css'
@@ -2263,6 +2386,7 @@ class wolfnet
             'wolfnet_content_footer'    => 'remoteContentFooter',
             'wolfnet_listings'          => 'remoteListings',
             'wolfnet_get_listings'      => 'remoteListingsGet',
+            'wolfnet_css'               => 'remotePublicCss',
             );
 
         foreach ($ajxActions as $action => $method) {
@@ -2289,6 +2413,7 @@ class wolfnet
             'wolfnet_content_footer'          => 'remoteContentFooter',
             'wolfnet_listings'                => 'remoteListings',
             'wolfnet_get_listings'            => 'remoteListingsGet',
+            'wolfnet_css'                     => 'remotePublicCss'
             );
 
         foreach ($ajxActions as $action => $method) {
