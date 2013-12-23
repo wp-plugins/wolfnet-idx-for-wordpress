@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.6.0
-Stable tag:         1.4.1
+Stable tag:         1.4.2
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.4.2 =
+* Fixing minor bug impacting sites running specific plugins.
 
 = 1.4.1 =
 * Fixing session management bug causing issues with Search Manager.
