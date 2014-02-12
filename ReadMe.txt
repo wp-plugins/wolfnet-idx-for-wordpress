@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde
 Tags:               idx, mls, homes
 Requires at least:  3.3.0
 Tested up to:       3.6.0
-Stable tag:         1.4.2
+Stable tag:         1.5.0
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.5.0 =
+* Introducing maps for Listing Grid and Property List components.
+* Adding an option to city searches for exact or like search behavior to Listing Grid and Property List components.
 
 = 1.4.2 =
 * Fixing minor bug impacting sites running specific plugins.

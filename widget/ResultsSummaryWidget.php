@@ -20,26 +20,25 @@
  *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Wolfnet_PropertyListWidget extends Wolfnet_ListingGridWidget
+class Wolfnet_ResultsSummaryWidget extends Wolfnet_ListingGridWidget
 {
 
 
-    public $idBase = 'wolfnet_propertyListWidget';
+    public $idBase = 'wolfnet_resultsSummaryWidget';
 
-    public $name = 'WolfNet Property List';
+    public $name = 'WolfNet Results Summary';
 
     public $options = array(
-        'description' => 'Define criteria to display a text list of matching properties. The text display includes the property address and price for each property.'
+        'description' => 'Define criteria to display a results summary of matching properties. The summary includes an image, price, number of bedrooms, number of bathrooms, and address.'
         );
 
 
     public function widget($args, $instance)
     {
         echo $args['before_widget'];
-        echo $this->plugin->propertyList($this->collectData($args, $instance));
+        echo $this->plugin->resultsSummary($this->collectData($args, $instance));
         echo $args['after_widget'];
 
     }
-
 
 }

@@ -233,69 +233,196 @@
   display: block;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img {
-  max-width: 97.5%;
+  max-width: 50px;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage {
   display: block;
 }
-.wolfnet_widget.wolfnet_listingGrid, .wolfnet_widget.wolfnet_propertyList {
+.wolfnet_widget.wolfnet_listingGrid, .wolfnet_widget.wolfnet_propertyList, .wolfnet_widget.wolfnet_resultsSummary {
   /* If the toolbar has both pagination and sorting tools give it a little extra height. */
 
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar {
+.wolfnet_widget.wolfnet_listingGrid .mqa-display img, .wolfnet_widget.wolfnet_propertyList .mqa-display img, .wolfnet_widget.wolfnet_resultsSummary .mqa-display img {
+  max-width: none !important;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntMainMap, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntMainMap, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntMainMap {
+  height: 480px;
+  position: relative;
+}
+.wolfnet_widget.wolfnet_listingGrid .wntHOItem, .wolfnet_widget.wolfnet_propertyList .wntHOItem, .wolfnet_widget.wolfnet_resultsSummary .wntHOItem {
+  cursor: pointer;
+  min-height: 115px;
+  width: 100%;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOTable, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOTable, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOTable {
+  padding: 0px;
+  width: auto;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOImg, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOImg, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOImg {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOBroker, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOBroker, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOBroker {
+  position: relative;
+  width: 110px;
+  margin-bottom: 5px!important;
+  color: ##888888;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOBrokerLogo, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOBrokerLogo, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOBrokerLogo {
+  max-width: 100px;
+  height: auto;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOContentContainer, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOContentContainer, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOContentContainer {
+  position: relative;
+  min-width: 200px;
+  line-height: 1.2;
+  top: 0px;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOContentBold, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOContentBold, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOContentBold {
+  display: block;
+  white-space: nowrap;
+  font-weight: bold!important;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHOContentBold, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHOContentBold, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHOContentBold {
+  display: block;
+  white-space: nowrap;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_wntHouseOverWrapper, .wolfnet_widget.wolfnet_propertyList .wolfnet_wntHouseOverWrapper, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_wntHouseOverWrapper {
+  position: relative;
+  max-height: 170px;
+  min-height: 150px;
+  width: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wolfnet_widget.wolfnet_listingGrid .showHideLink, .wolfnet_widget.wolfnet_propertyList .showHideLink, .wolfnet_widget.wolfnet_resultsSummary .showHideLink {
+  padding-top: 25px;
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar {
   width: 100%;
   clear: both;
   height: 2em;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_toolbarTop, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_toolbarTop {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_toolbarTop, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_toolbarTop, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar.wolfnet_toolbarTop {
   margin: 2em 0 1.75em 0;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_toolbarBottom, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_toolbarBottom {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar.wolfnet_toolbarBottom, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar.wolfnet_toolbarBottom, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar.wolfnet_toolbarBottom {
   margin: 0 0 2em 0;
   padding: 1.75em 0 0 0;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_nav {
   display: inline-block;
   width: 20%;
   white-space: nowrap;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_prev, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_prev {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_prev, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_prev, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_prev {
   float: left;
   text-align: left;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_next, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_next {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_next, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_next, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_nav.wolfnet_page_nav_next {
   float: right;
   text-align: right;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_disabled, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_disabled {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_nav.wolfnet_disabled, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_nav.wolfnet_disabled, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_nav.wolfnet_disabled {
   text-decoration: none;
   opacity: 0.5;
   filter: alpha(opacity=50);
   cursor: default;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_info {
   display: inline-block;
   float: left;
   text-align: center;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items {
   white-space: nowrap;
   display: inline-block;
   padding-right: 1em;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items_select, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items_select {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items_select, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items_select, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_info .wolfnet_page_items_select {
   white-space: nowrap;
   display: inline-block;
   padding-right: 1em;
 }
-.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_sortoptions, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_sortoptions {
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_toolbar .wolfnet_page_info .wolfnet_sortoptions, .wolfnet_widget.wolfnet_propertyList .wolfnet_toolbar .wolfnet_page_info .wolfnet_sortoptions, .wolfnet_widget.wolfnet_resultsSummary .wolfnet_toolbar .wolfnet_page_info .wolfnet_sortoptions {
   display: inline-block;
 }
-.wolfnet_widget.wolfnet_listingGrid.wolfnet_withPagination .wolfnet_page_info, .wolfnet_widget.wolfnet_propertyList.wolfnet_withPagination .wolfnet_page_info {
+.wolfnet_widget.wolfnet_listingGrid.wolfnet_withPagination .wolfnet_page_info, .wolfnet_widget.wolfnet_propertyList.wolfnet_withPagination .wolfnet_page_info, .wolfnet_widget.wolfnet_resultsSummary.wolfnet_withPagination .wolfnet_page_info {
   width: 60%;
 }
-.wolfnet_widget.wolfnet_listingGrid.wolfnet_withPagination.wolfnet_withSortOptions .wolfnet_toolbar, .wolfnet_widget.wolfnet_propertyList.wolfnet_withPagination.wolfnet_withSortOptions .wolfnet_toolbar {
+.wolfnet_widget.wolfnet_listingGrid.wolfnet_withPagination.wolfnet_withSortOptions .wolfnet_toolbar, .wolfnet_widget.wolfnet_propertyList.wolfnet_withPagination.wolfnet_withSortOptions .wolfnet_toolbar, .wolfnet_widget.wolfnet_resultsSummary.wolfnet_withPagination.wolfnet_withSortOptions .wolfnet_toolbar {
   height: 3em;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto 1em auto;
+  position: relative;
+  text-align: left;
+  font-size: .8em;
+  margin: 0 5px 0 5px;
+  clear: both;
+  padding-bottom: 20px;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing a {
+  color: inherit;
+  text-decoration: none;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_detailsLink {
+  display: block;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_listingImage {
+  width: 160px;
+  height: auto;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  text-align: center;
+  margin-bottom: .5em;
+  border: 1px solid #dedede;
+  background-color: #F5F5F5;
+  padding: 10px 0 10px 0;
+  float: left;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_listingImage img {
+  height: 95px;
+  box-shadow: 0 5px 10px rgba(153, 153, 153, 0.25);
+  border: 1px solid #EBEBEB;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_data {
+  padding-left: 175px;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_price {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: block;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_location {
+  display: block;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_bed_bath {
+  display: block;
+  position: absolute;
+  top: 125px;
+  right: 0;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo {
+  display: block;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img {
+  max-width: 50px;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage {
+  display: block;
 }
 .wolfnet_widget.wolfnet_featuredListings {
   overflow: hidden;

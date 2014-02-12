@@ -2,7 +2,7 @@
 
 /**
  *
- * @title         PropertyListWidget.php
+ * @title         hideListingsTools.php
  * @copyright     Copyright (c) 2012, 2013, WolfNet Technologies, LLC
  *
  *                This program is free software; you can redistribute it and/or
@@ -14,32 +14,24 @@
  *                but WITHOUT ANY WARRANTY; without even the implied warranty of
  *                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *                GNU General Public License for more details.
- *
+ * 
  *                You should have received a copy of the GNU General Public License
  *                along with this program; if not, write to the Free Software
  *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Wolfnet_PropertyListWidget extends Wolfnet_ListingGridWidget
-{
+?>
 
+<div id="<?php echo $hideId; ?>" class="showHideLink">
+	<a href="javascript:void(0)" 
+	   onclick="wolfnet.hideListings('<?php echo $collapseId; ?>','<?php echo $hideId; ?>','<?php echo $showId; ?>','<?php echo $instance_id; ?>');">
+		Hide Listings
+	</a>
+</div>
+<div id="<?php echo $showId; ?>" class="showHideLink" style="display:none;">
+	<a href="javascript:void(0)" 
+	   onclick="wolfnet.showListings('<?php echo $collapseId; ?>','<?php echo $hideId; ?>','<?php echo $showId; ?>','<?php echo $instance_id; ?>');">
+		Show these listings
+	</a>
+</div>
 
-    public $idBase = 'wolfnet_propertyListWidget';
-
-    public $name = 'WolfNet Property List';
-
-    public $options = array(
-        'description' => 'Define criteria to display a text list of matching properties. The text display includes the property address and price for each property.'
-        );
-
-
-    public function widget($args, $instance)
-    {
-        echo $args['before_widget'];
-        echo $this->plugin->propertyList($this->collectData($args, $instance));
-        echo $args['after_widget'];
-
-    }
-
-
-}

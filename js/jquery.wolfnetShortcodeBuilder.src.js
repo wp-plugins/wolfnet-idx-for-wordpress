@@ -58,6 +58,13 @@ jQuery(function($){
             action:'wolfnet_scb_options_list',
             shortcode:'wnt_list'
             },
+        /*  Removing until requirements for this component are better fleshed out
+        'summ' : {
+            title:'Results Summary',
+            action:'wolfnet_scb_results_summary',
+            shortcode:'wnt_results'
+            },
+        */
         'srch' : {
             title:'Quick Search',
             action:'wolfnet_scb_options_quicksearch',
@@ -66,15 +73,15 @@ jQuery(function($){
         };
 
 
-    var createBuilderDialog = function ()
+    var createBuilderDialog = function (options)
     {
         if ($builderDialog == null || !(typeof $builderDialog === 'jQuery')) {
             $builderDialog = $('<div>')
             .dialog({
                 modal    :true,
                 autoOpen :false,
-                height   : 450,
-                width    : 475,
+                height   : 600,
+                width    : 600,
                 title    : baseTitle,
                 close    : function () {
                     // When the dialog window is closed reset the page back to the menu.
@@ -82,7 +89,7 @@ jQuery(function($){
                     // Also reset all forms within the builder back to their defaults.
                     $builderDialog.find('form').trigger('reset');
                 },
-                dialogClass: 'wolfnet_dialog'
+                dialogClass: (options.useDialogClass=='true') ? 'wolfnet_dialog' : ''
             });
             createMenuPage();
             createLoader();
@@ -310,9 +317,10 @@ jQuery(function($){
 
         init : function (options)
         {
-            var options = options||{};
-            loaderUri   = options.loaderUri||null;
-            createBuilderDialog();
+            var opt = {useDialogClass:true};
+            $.extend(opt, options||{});
+            loaderUri = opt.loaderUri||null;
+            createBuilderDialog(opt);
         },
 
         open : function (editor)
@@ -338,7 +346,7 @@ jQuery(function($){
     };
 
 
-    $(document).wolfnetShortcodeBuilder();
+    $(document).wolfnetShortcodeBuilder({useDialogClass:wolfnet_ajax.useDialogClass||'true'});
 
 
 });

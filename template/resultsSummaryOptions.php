@@ -2,7 +2,7 @@
 
 /**
  *
- * @title         PropertyListWidget.php
+ * @title         resultsSummaryOptions.php
  * @copyright     Copyright (c) 2012, 2013, WolfNet Technologies, LLC
  *
  *                This program is free software; you can redistribute it and/or
@@ -20,26 +20,4 @@
  *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Wolfnet_PropertyListWidget extends Wolfnet_ListingGridWidget
-{
-
-
-    public $idBase = 'wolfnet_propertyListWidget';
-
-    public $name = 'WolfNet Property List';
-
-    public $options = array(
-        'description' => 'Define criteria to display a text list of matching properties. The text display includes the property address and price for each property.'
-        );
-
-
-    public function widget($args, $instance)
-    {
-        echo $args['before_widget'];
-        echo $this->plugin->propertyList($this->collectData($args, $instance));
-        echo $args['after_widget'];
-
-    }
-
-
-}
+include dirname(__FILE__) . '/listingGridOptions.php';
