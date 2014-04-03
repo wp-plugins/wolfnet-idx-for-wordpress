@@ -24,22 +24,22 @@
 
 <div id="<?php echo $instance_id; ?>" class="wolfnet_listingGridOptions">
 
-    <input id="<?php echo $criteria_wpid; ?>" name="<?php echo $criteria_wpname; ?>" 
+    <input id="<?php echo $criteria_wpid; ?>" name="<?php echo $criteria_wpname; ?>"
            value="<?php echo $criteria; ?>" type="hidden" />
 
     <table class="form-table">
 
         <tr>
             <td><label>Title:</label></td>
-            <td><input id="<?php echo $title_wpid; ?>" name="<?php echo $title_wpname; ?>" 
+            <td><input id="<?php echo $title_wpid; ?>" name="<?php echo $title_wpname; ?>"
                        value="<?php echo $title; ?>" type="text" /></td>
         </tr>
-              
+
         <tr class="modeField">
             <td><label>Mode:</label></td>
             <td>
-                <input id="<?php echo $mode_wpid; ?>" name="<?php echo $mode_wpname; ?>" value="basic" type="radio" checked="checked" /> Basic <br/>
-                <input id="<?php echo $mode_wpid; ?>" name="<?php echo $mode_wpname; ?>" value="advanced" type="radio" /> Advanced
+                <input id="<?php echo $mode_wpid; ?>" name="<?php echo $mode_wpname; ?>" value="basic" type="radio" <?php echo $mode_basic_wpc ? 'checked="checked"' : '' ?> /> Basic <br/>
+                <input id="<?php echo $mode_wpid; ?>" name="<?php echo $mode_wpname; ?>" value="advanced" type="radio" <?php echo $mode_advanced_wpc ? 'checked="checked"' : '' ?> /> Advanced
             </td>
         </tr>
 
@@ -55,7 +55,7 @@
                 </select>
                 <?php if (!$mapEnabled) { ?>
                 <p>
-                    <span style="color:#FF0000;font-weight:bold;">*</span> 
+                    <span style="color:#FF0000;font-weight:bold;">*</span>
                     <span style="font-style:italic;font-size:0.75em;">Map option is unavailable at this time. To enable this feature, please contact WolfNet sales for more information (612) 342-0088.</span>
                 </p>
                 <?php } ?>
@@ -115,7 +115,7 @@
                     type="text" value="<?php echo $city; ?>" /> <br/>
                 <input id="<?php echo $exactcity_wpid; ?>" name="<?php echo $exactcity_wpname; ?>"
                        type="checkbox" value="1" checked="checked">
-                Only listings that exactly match this city.            
+                Only listings that exactly match this city.
             </td>
         </tr>
 
@@ -195,8 +195,8 @@
 <script type="text/javascript">
 
     jQuery(function($){
-        $('#<?php echo $instance_id; ?>').wolfnetListingGridControls();
-        wolfnet.initMoreInfo( $( '#<?php echo $instance_id; ?> .wolfnet_moreInfo' ) );
+        $('.wolfnet_listingGridOptions').wolfnetListingGridControls();
+        wolfnet.initMoreInfo( $( '.wolfnet_listingGridOptions .wolfnet_moreInfo' ) );
     });
 
 </script>

@@ -233,11 +233,13 @@
   display: block;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img {
-  max-width: 50px;
   height: auto;
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+.wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo.wolfnet_idxLogo img, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo.wolfnet_idxLogo img {
+  max-width: 45px;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage {
   display: block;
@@ -415,11 +417,13 @@
   display: block;
 }
 .wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo img {
-  max-width: 50px;
   height: auto;
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+.wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo.wolfnet_idxLogo img {
+  max-width: 45px;
 }
 .wolfnet_widget.wolfnet_resultsSummary .wolfnet_listing .wolfnet_branding .wolfnet_brandingMessage {
   display: block;
