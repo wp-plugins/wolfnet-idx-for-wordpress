@@ -5,7 +5,7 @@
  * Plugin URI:   http://wordpress.org/plugins/wolfnet-idx-for-wordpress
  * Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with
  *               any WordPress website.
- * Version:      1.6.0
+ * Version:      1.6.2
  * Author:       WolfNet Technologies, LLC.
  * Author URI:   http://www.wolfnet.com
  *
@@ -46,7 +46,7 @@ class Wolfnet
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '1.6.0';
+    public $version = '1.6.2';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
@@ -530,7 +530,12 @@ class Wolfnet
     public function getDefaultProductKey() {
         $productKey = json_decode($this->getProductKey());
         // TODO: Add some sort of error throwing for if there are no keys.
-        return $productKey[0]->key;
+
+        if (is_array($productKey) && array_key_exists(0, $productKey)) {
+            return $productKey[0]->key;
+        } else {
+            return false;
+        }
     }
 
 
