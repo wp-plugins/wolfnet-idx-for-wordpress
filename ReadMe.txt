@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde, blots
 Tags:               idx, mls, homes
 Requires at least:  3.5.1
 Tested up to:       4.0
-Stable tag:         1.6.3
+Stable tag:         1.6.4
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,9 @@ entered in the "WolfNet >> General Settings" page before any IDX data can be dis
 
 
 == Changelog ==
+
+= 1.6.4 =
+* Fixed Widget issue when there is no active key
 
 = 1.6.3 =
 * Tested to WordPress 4.0

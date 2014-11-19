@@ -204,7 +204,7 @@ class Wolfnet_Api
     public function getMaptracksEnabled($productKey=null)
     {
         if($productKey == null) {
-            $productKey = json_decode($this->getDefaultProductKey());
+            $productKey = $GLOBALS['wolfnet']->getDefaultProductKey();
         }
         $url  = $this->serviceUrl . '/setting/' . $productKey
               . '?setting=maptracks_enabled';
@@ -219,7 +219,7 @@ class Wolfnet_Api
     public function getSortOptions($productKey=null)
     {
         if($productKey == null) {
-            $productKey = $this->getDefaultProductKey();
+            $productKey = $GLOBALS['wolfnet']->getDefaultProductKey();
         }
         $url  = $this->serviceUrl . '/sortOptions/' . $productKey . '.json';
 
@@ -480,27 +480,6 @@ class Wolfnet_Api
                 $concatHouseover .= '</div>';
                 $concatHouseover .= '</a>';
             }
-            $concatHouseover .= '</td>';
-            $concatHouseover .= '<td valign="top" style="vertical-align:top;">';
-            $concatHouseover .= '<div class="wolfnet_wntHOContentContainer">';
-            $concatHouseover .= '<div style="text-align:left;font-weight:bold">' . $listing->listing_price;
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '<div style="text-align:left;">' . $listing->display_address;
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '<div style="text-align:left;">' . $listing->city . ', ' . $listing->state;
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '<div style="text-align:left;">' . $listing->bedsbaths;
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '<div style="text-align:left;padding-top:20px;">' . $listing->branding->content;
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '</td>';
-            $concatHouseover .= '</tr>';
-            $concatHouseover .= '</tbody>';
-            $concatHouseover .= '</table>';
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '</div>';
-            $concatHouseover .= '</a>';
 
             array_push($houseoverData, array(
                 'lat'        => $listing->lat,
