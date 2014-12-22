@@ -214,6 +214,7 @@
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_listingImage img, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_listingImage img {
   height: 95px;
   box-shadow: 0 5px 10px rgba(153, 153, 153, 0.25);
+  margin: auto;
   border: 1px solid #EBEBEB;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_price, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_price {
@@ -221,7 +222,10 @@
   font-weight: bold;
   display: block;
 }
-.wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_location, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_location {
+.wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_location,
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_location,
+.wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_address,
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_address {
   display: block;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_bed_bath, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_bed_bath {
@@ -251,6 +255,9 @@
 .wolfnet_widget.wolfnet_listingGrid, .wolfnet_widget.wolfnet_propertyList {
   /* If the toolbar has both pagination and sorting tools give it a little extra height. */
 
+}
+.wolfnet_widget.wolfnet_listingGrid .wolfnet_showhide, .wolfnet_widget.wolfnet_propertyList .wolfnet_showhide {
+  clear: both;
 }
 .wolfnet_widget.wolfnet_listingGrid .mqa-display img, .wolfnet_widget.wolfnet_propertyList .mqa-display img {
   max-width: none !important;
@@ -439,7 +446,7 @@
 }
 .wolfnet_widget.wolfnet_listingGrid {
   text-align: left;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 2em auto;
 }
 .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing {
   height: 185px;
