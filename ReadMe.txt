@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde, blots
 Tags:               idx, mls, homes
 Requires at least:  3.5.1
 Tested up to:       4.1
-Stable tag:         1.7.0
+Stable tag:         1.7.1
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,14 @@ This css will resolve the layout issue in the "Twenty Fifteen" theme
 
 
 == Changelog ==
+
+= 1.7.1 =
+* Fixed bugs with several search manager search fields
+* Fixed issue which caused some fields in widgets to be handled differently than shortcodes 
+* Updated error handling and reporting
+* Added support for custom field search
+* Added alternate Quick Search view
+* Fix several other bugs with Search Manager searches
 
 = 1.7.0 =
 * Incorporated new API improving speed and performance

@@ -23,10 +23,7 @@
 .wolfnet_widget {
   margin: 1em auto 2em auto;
 }
-.wolfnet_widget.wolfnet_quickSearch {
-  border: 1px solid #DDD;
-  padding: 8px;
-  position: relative;
+.wolfnet_widget.wolfnet_quickSearch_legacy {
   z-index: 10;
   background: -moz-linear-gradient(top, #ffffff 60%, #e2e2e2 100%);
   /* FF3.6+ */
@@ -49,6 +46,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#e2e2e2",GradientType=0);
   /* IE6-9 */
 
+}
+.wolfnet_widget.wolfnet_quickSearch {
+  border: 1px solid #DDD;
+  padding: 8px;
+  position: relative;
 }
 .wolfnet_widget.wolfnet_quickSearch .wolfnet_widgetTitle {
   font-size: 1.5em;
@@ -182,6 +184,9 @@
   height: auto;
   width: auto;
   float: none;
+}
+.wolfnet_widget.wolfnet_quickSearch_basic {
+  z-index: 0;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing {
   width: 150px;
