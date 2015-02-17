@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde, blots
 Tags:               idx, mls, homes
 Requires at least:  3.5.1
 Tested up to:       4.1
-Stable tag:         2ad8b1541df556d2a9d702fd229d19dcb90d86a1
+Stable tag:         1.7.3
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
