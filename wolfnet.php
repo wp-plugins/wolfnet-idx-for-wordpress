@@ -5,7 +5,7 @@
  * Plugin URI:   http://wordpress.org/plugins/wolfnet-idx-for-wordpress
  * Description:  The WolfNet IDX for WordPress plugin provides IDX search solution integration with
  *               any WordPress website.
- * Version:      2ad8b1541df556d2a9d702fd229d19dcb90d86a1
+ * Version:      1.7.3
  * Author:       WolfNet Technologies, LLC.
  * Author URI:   http://www.wolfnet.com
  *
@@ -45,7 +45,7 @@ class Wolfnet
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '2ad8b1541df556d2a9d702fd229d19dcb90d86a1';
+    public $version = '1.7.3';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
