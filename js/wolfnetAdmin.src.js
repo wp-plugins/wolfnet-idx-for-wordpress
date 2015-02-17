@@ -1,0 +1,591 @@
+/**
+ * This script is a general container for JavaScript code sepcific to the WordPress admin interface.
+ *
+ * @title         wolfnetAdmin.js
+ * @copyright     Copyright (c) 2012, 2013, WolfNet Technologies, LLC
+ *
+ *                This program is free software; you can redistribute it and/or
+ *                modify it under the terms of the GNU General Public License
+ *                as published by the Free Software Foundation; either version 2
+ *                of the License, or (at your option) any later version.
+ *
+ *                This program is distributed in the hope that it will be useful,
+ *                but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *                GNU General Public License for more details.
+ *
+ *                You should have received a copy of the GNU General Public License
+ *                along with this program; if not, write to the Free Software
+ *                Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ */
+
+/**
+ * The following code relies on jQuery so if jQuery has been initialized encapsulate the following
+ * code inside an immediately invoked function expression (IIFE) to avoid naming conflicts with the $
+ * variable.
+ */
+
+if ( typeof jQuery != 'undefined' ) {
+
+	( function ( $ ) {
+
+		$( document ).ready( function () {
+
+			/* simple browser detection */
+			if ( navigator.appName == 'Microsoft Internet Explorer' ) {
+				$( 'html' ).addClass( 'ie' );
+			}
+
+			/* This is a HACK to remove some unwanted controls on the Saved Search custom post type. */
+			var $formWrap = $( '.post-php .icon32-posts-wolfnet_search' ).parent();
+			if ( $formWrap.length != 0 ) {
+				$formWrap.find( '.add-new-h2' ).remove();
+				$formWrap.find( '#submitpost #minor-publishing' ).remove();
+			}
+
+			/* The following code is responsible for displaying full version images of the
+			 * "thumbnail" images on the support page. */
+			( function () {
+
+				var $supportPage = $( '#wolfnet_support_page' );
+				var $thumbnailModal = $supportPage.find( '#thumbnail_modal' );
+
+				if ( $thumbnailModal.length == 0 ) {
+					$thumbnailModal = $( '<div />' );
+					$thumbnailModal.css( 'text-align', 'center' );
+					$supportPage.append( $thumbnailModal );
+					$thumbnailModal.dialog( { autoOpen:false, modal:true, width:550, height:450 } );
+				}
+
+				$supportPage.find( 'a img.wolfnet_thumbnail' ).parent().click( function ( event ) {
+					var $img = $( '<img />' );
+					var maxHeight = $thumbnailModal.height() - 50;
+					var maxWidth  = $thumbnailModal.width()  - 35;
+					$img.attr( 'src', $( this ).attr( 'href' ) );
+					$img.attr( 'align', 'center' );
+					$img.css( { 'max-height':maxHeight, 'max-width':maxWidth, 'margin':'0' } );
+					$img.click( function () {
+						window.open( this.src );
+					} );
+					$thumbnailModal.html( $img );
+					$thumbnailModal.dialog( 'open' );
+					event.preventDefault();
+					return false;
+				} );
+
+				var updateModalHeight = function () {
+					var windowHeight = $( window ).height();
+					var windowWidth  = $( window ).width();
+					$thumbnailModal.dialog( { height:( windowHeight * .8 ), width:( windowWidth * .8 ) } );
+				}
+				updateModalHeight();
+
+				$( window ).resize( function () {
+					updateModalHeight();
+				} );
+
+				var $supportContent = $( '#wolfnet_support_content' );
+				var $supportNav     = $supportContent.find( 'ol:first' );
+
+				/* Remove Table of Contents Header */
+				$supportContent.find( 'h3:contains(Table of Contents)' ).remove();
+
+				$supportNav.find( 'li > ol,li > ul' ).remove();
+
+				$supportContent.tabs();
+
+			})();
+
+		} );
+
+		$.fn.wolfnetFeaturedListingsControls = function ( options )
+		{
+
+			var option = $.extend( {}, options );
+
+			var animationSpeed = 'fast';
+			var easing         = 'swing';
+
+			var showAutoFields = function ( $autoFields )
+			{
+				$autoFields.disabled = false;
+				$autoFields.show();
+				$autoFields.find( 'fieldset:first' ).slideDown( animationSpeed, easing );
+			}
+
+			var hideAutoFields = function ( $autoFields )
+			{
+				$autoFields.val( '' );
+				$autoFields.disabled = true;
+				$autoFields.find( 'fieldset:first' ).slideUp( animationSpeed, easing, function () {
+					$autoFields.hide();
+				} );
+			}
+
+			return this.each( function () {
+
+				var $widgetCtrls = $( this );
+
+				var $playMode   = $widgetCtrls.find( '.wolfnet_featuredListingsOptions_autoPlayField:first' );
+				var $autoFields = $widgetCtrls.find( '.wolfnet_featuredListingsOptions_autoPlayOptions:first' ).hide();
+
+				$playMode.change( function () {
+
+					/* Automatic */
+					if ( $( this ).val() == 'true' ) {
+						showAutoFields( $autoFields );
+					}
+					/* Manual */
+					else {
+						hideAutoFields( $autoFields );
+					}
+
+				} );
+
+				$playMode.trigger( 'change' );
+
+			} );
+
+		}
+
+
+		$.fn.wolfnetListingGridControls = function ( options )
+		{
+
+			var option = $.extend( {}, options );
+
+			var animationSpeed = 'fast';
+			var easing         = 'swing';
+
+			var showAdvancedOptions = function ( $fields )
+			{
+				$fields.filter( '.basic-option' ).hide();
+				$fields.filter( '.advanced-option' ).show();
+			}
+			var showBasicOptions = function ( $fields )
+			{
+				$fields.filter( '.advanced-option' ).hide();
+				$fields.filter( '.basic-option' ).show();
+			}
+
+			var eventHandler = function ()
+			{
+				var $mode   = $( this );
+				var $fields = this.$fields;
+
+				if ( $mode.is( ':checked' ) ) {
+
+					switch ( $mode.val() ) {
+
+						case 'basic':
+							showBasicOptions( $fields );
+							break;
+
+						case 'advanced':
+							showAdvancedOptions( $fields );
+							break;
+
+					}
+
+				}
+
+			}
+
+			var savedSearchEventHandler = function ()
+			{
+				if ( !this.beenWarned ) {
+					alert(
+						'The Saved Search that was previously used for this widget no longer exists. ' +
+						'The widget will continue to function using the same search criteria unless you ' +
+						'change the saved search value to something other than ** DELETED **.'
+					);
+					this.beenWarned = true;
+				}
+			}
+
+			return this.each( function () {
+
+				var $form   = $( this );
+				var $fields = $form.find( 'tr.basic-option,tr.advanced-option' );
+				var $mode   = $form.find( '.modeField input' );
+				var $key    = $form.find( '.keyid' );
+
+				$fields.hide();
+
+				$mode.each( function () {
+					this.$fields = $fields;
+				} );
+
+				$key.change( function() {
+					$(this).wolfnetUpdateShortcodeControls($form);
+				} );
+
+				$mode.click( eventHandler );
+				$mode.bind( 'ready', eventHandler );
+
+				$( document ).ready( function () {
+					$mode.trigger( 'ready' );
+				} );
+
+				var $savedSearch = $form.find( '.savedSearchField select:first' );
+
+				if ( $savedSearch.val() == 'deleted' ) {
+
+					$savedSearch.each( function () {
+						this.beenWarned = false;
+					} );
+					$savedSearch.click( savedSearchEventHandler );
+					$savedSearch.focus( savedSearchEventHandler );
+
+				}
+
+			} );
+
+		}
+
+
+		$.fn.wolfnetValidateProductKey = function ( clientOptions )
+		{
+
+			var options = {
+				validClass      : 'valid',
+				invalidClass    : 'invalid',
+				wrapperClass    : 'wolfnetProductKeyValidationWrapper',
+				validEvent      : 'validProductKey',
+				invalidEvent    : 'invalidProductKey',
+				validationEvent : 'validateProductKey'
+			};
+			$.extend( options, clientOptions );
+
+			/* Validate that the key is of an appropriate length. */
+			var validateLength = function ( key )
+			{
+				// Account for old keys with "wp_" and new keys without that prefix.
+				if ( key.length == 35 || key.length == 32 ) {
+					return true;
+				}
+				else {
+					return false;
+				}
+
+			}
+
+			/* Send the key to the API and validate that the key is active in mlsfinder.com */
+			var validateViaApi = function ( input )
+			{
+				var $this    = $( input );
+				var key      = $this.val();
+
+				$.ajax( {
+					url: wolfnet_ajax.ajaxurl,
+					data: { action:'wolfnet_validate_key', key:key },
+					dataType: 'json',
+					type: 'GET',
+					cache: false,
+					timeout: 2500,
+					statusCode: {
+						404: function () {
+							commFailure();
+						}
+					},
+					success: function ( data ) {
+						if ( data === true ) {
+							$this.trigger( options.validEvent );
+						}
+						else {
+							$this.trigger( options.invalidEvent );
+						}
+					},
+					error: function () {
+						/* If the Ajax request failed notify the user that validation of the key was not possible. */
+						$this.trigger( options.invalidEvent );
+						alert( 'Your product key appears to be formated correctly but we are unable to validate it against our servers at this time.' );
+					}
+				} );
+			}
+
+			/* This callback function is called whenever the validation event is trigger and takes
+			 * any neccessary action to notify the user if the key is valid or not. */
+			var onValidateEvent = function ()
+			{
+				var $this    = $( this );
+				var $wrapper = $this.parent();
+				var key      = $this.val();
+
+				if ( key != '' ) {
+					if ( validateLength( key ) === true ) {
+						$this.trigger( options.validEvent );
+						validateViaApi( this );
+					}
+					else {
+						$this.trigger( options.invalidEvent );
+					}
+				}
+				else {
+					$wrapper.removeClass( options.validClass );
+					$wrapper.removeClass( options.invalidClass );
+				}
+			}
+
+			var onValidEvent = function ()
+			{
+				var $this    = $( this );
+				var $wrapper = $this.parent();
+				$wrapper.addClass( options.validClass );
+				$wrapper.removeClass( options.invalidClass );
+
+				// Update market name
+				$.ajax( {
+					url: wolfnet_ajax.ajaxurl,
+					data: { action:'wolfnet_market_name', productkey:$(this).val() },
+					dataType: 'json',
+					type: 'GET',
+					cache: false,
+					timeout: 2500,
+					statusCode: {
+						404: function () {
+							commFailure();
+						}
+					},
+					success: function ( data ) {
+						$marketContainer = $wrapper.closest('tr').find('.wolfnet_keyMarket');
+						$marketLabel = $wrapper.closest('tr').find('.wolfnet_keyLabel');
+						if($marketContainer.html() == '') {
+							$marketContainer.html(data);
+						}
+						if($marketLabel.val() == '') {
+							$marketLabel.val(data);
+						}
+					},
+					error: function () {
+						$this.trigger( options.invalidEvent );
+					}
+				} );
+			}
+
+			var onInvalidEvent = function ()
+			{
+				var $this    = $( this );
+				var $wrapper = $this.parent();
+				$wrapper.addClass( options.invalidClass );
+				$wrapper.removeClass( options.validClass );
+			}
+
+			return this.each( function () {
+
+				var $this = $( this );
+
+				/* Ensure the plugin is only applied to input elements. */
+				if ( this.nodeName.toLowerCase() != 'input' ) {
+					throw "wolfnetValidateProductKey jQuery plugin can only be applied to an input element!"
+				}
+				else {
+
+					/* Create an element to wrap the input field with. ( this will make styling easier ) */
+					var $wrapper = $( '<span/>' );
+					$wrapper.addClass( options.wrapperClass );
+
+					/* Add the wrapper element to the DOM immediately after the input field. Then
+					 * move the input field inside of the wrapper. */
+					$this.after( $wrapper );
+					$this.appendTo( $wrapper );
+
+					/* Bind the some custom events to callback */
+					$this.bind( options.validationEvent, onValidateEvent );
+					$this.bind( options.validEvent, onValidEvent );
+					$this.bind( options.invalidEvent, onInvalidEvent );
+
+					/* Trigger the validation even every time a key is pressed in input field. */
+					$this.keyup( function () {
+						$this.trigger( options.validationEvent );
+					} );
+
+					/* Trigger the validation event when the document is ready. */
+					$( document ).ready( function () {
+						$this.trigger( options.validationEvent );
+					} );
+
+				}
+
+			} );
+
+		}
+
+
+		$.fn.wolfnetDeleteKeyRow = function (button) {
+            var key = $(button.srcElement).attr('wnt-key');
+            $('.row' + key).remove();
+        }
+
+
+        $.fn.wolfnetInsertKeyRow = function ()
+        {
+
+            var nextIteration = parseInt($('#wolfnet_keyCount').val()) + 1;
+
+            // Row 1
+            var row = $('<tr />').attr('class', 'row' + nextIteration);
+            var headCell = $('<th />').attr('scope', 'row');
+            var headRow = row.clone().append(headCell.clone().html(
+                    $('<label />').attr('for', 'wolfnet_productKey_' + nextIteration).html('Product Key')
+                )
+            );
+            headRow.append(headCell.clone().html('Market Name'));
+            headRow.append(headCell.clone().html(
+                    $('<label />').attr('for', 'wolfnet_keyLabel_' + nextIteration).html('Label')
+                )
+            );
+            headRow.append(headCell.clone());
+
+            // Row 2
+            var cell = $('<td />');
+            var valueRow = row.clone().append(cell.clone().html(
+                    $('<input />').attr('id', 'wolfnet_productKey_' + nextIteration)
+                    .attr('class', 'wolfnet_productKey')
+                    .attr('name', 'wolfnet_productKey_' + nextIteration)
+                    .attr('type', 'text')
+                    .attr('value', '')
+                    .attr('size', '50')
+                )
+            );
+            valueRow.append(cell.clone().html($('<span/>').attr('class', 'wolfnet_keyMarket')));
+            valueRow.append(cell.clone().html(
+                    $('<input />').attr('id', 'wolfnet_keyLabel_' + nextIteration)
+                    .attr('name', 'wolfnet_keyLabel_' + nextIteration)
+                    .attr('class', 'wolfnet_keyLabel')
+                    .attr('type', 'text')
+                    .attr('value', '')
+                    .attr('size', '30')
+                )
+            );
+            valueRow.append(cell.clone().html(
+                    $('<input />').attr('class', 'wolfnet_deleteKey')
+                    .attr('wnt-key', nextIteration)
+                    .attr('type', 'button')
+                    .attr('value', 'Delete')
+                    .click(function(button) {
+                        $.fn.wolfnetDeleteKeyRow(button);
+                    })
+                )
+            )
+
+            $('#wolfnet_keys').append(headRow).append(valueRow);
+
+            $('#wolfnet_keyCount').val(nextIteration);
+
+            $('#wolfnet_productKey_' + nextIteration).wolfnetValidateProductKey( {
+                rootUri: '<?php echo site_url(); ?>?pagename=wolfnet-admin-validate-key'
+            } );
+
+        }
+
+        $.fn.wolfnetUpdateShortcodeControls = function (container)
+	    {
+
+	        var keyid = $(container).find('.keyid').val();
+
+	        $.ajax( {
+	            url: wolfnet_ajax.ajaxurl,
+	            data: { action:'wolfnet_price_range', keyid:keyid },
+	            dataType: 'json',
+	            type: 'GET',
+	            cache: false,
+	            timeout: 2500,
+	            statusCode: {
+	                404: function () {
+	                    commFailure();
+	                }
+	            },
+	            success: function ( data ) {
+	                var options = buildPriceDropdownOptions(data);
+	                $(container).find('.pricerange').html('');
+	                $(container).find('.maxprice').append($('<option />').attr('value', '').html('Max. Price'));
+	                $(container).find('.minprice').append($('<option />').attr('value', '').html('Min. Price'));
+	                $(options).each(function() {
+	                    $(container).find('.pricerange').append(this);
+	                });
+	            },
+	            error: function ( error ) {
+	                console.log(error);
+	            }
+	        } );
+
+	        $.ajax( {
+	            url: wolfnet_ajax.ajaxurl,
+	            data: { action:'wolfnet_saved_searches', keyid:keyid },
+	            dataType: 'json',
+	            type: 'GET',
+	            cache: false,
+	            timeout: 2500,
+	            statusCode: {
+	                404: function () {
+	                    commFailure();
+	                }
+	            },
+	            success: function ( data ) {
+	                var options = buildSavedSearchDropdownOptions(data);
+	                $(container).find('.savedsearch').html('');
+	                $(container).find('.savedsearch').append($('<option />').html('-- Saved Search --'));
+	                $(options).each(function() {
+	                    $(container).find('.savedsearch').append(this);
+	                });
+	            },
+	            error: function ( error ) {
+	                console.log(error);
+	            }
+	        } );
+
+	        $.ajax( {
+	            url: wolfnet_ajax.ajaxurl,
+	            data: { action:'wolfnet_map_enabled', keyid:keyid },
+	            dataType: 'json',
+	            type: 'GET',
+	            cache: false,
+	            timeout: 2500,
+	            statusCode: {
+	                404: function () {
+	                    commFailure();
+	                }
+	            },
+	            success: function ( data ) {
+	                if(data == true) {
+	                    $(container).find('.mapDisabled').css('display', 'none');
+	                    $(container).find('.maptype').removeAttr('disabled');
+	                } else {
+	                    $(container).find('.mapDisabled').css('display', 'block');
+	                    $(container).find('.maptype').attr('disabled', 'true');
+	                }
+	            },
+	            error: function ( error ) {
+	                console.log(error);
+	            }
+	        } );
+
+	        var buildPriceDropdownOptions = function(data) 
+	        {
+	            var options = [];
+	            $(data).each(function() {
+	                options.push(
+	                    $('<option />').attr('value', this.value).html(this.label)
+	                );
+	            });
+	            return options;
+	        }
+
+	        var buildSavedSearchDropdownOptions = function(data)
+	        {
+	            var options = [];
+	            $(data).each(function() {
+	                options.push(
+	                    $('<option />').attr('value', this.ID).html(this.post_title)
+	                );
+	            });
+	            return options;
+	        }
+
+	    }
+
+	} )( jQuery ); /* END: jQuery IIFE */
+
+} /* END: If jQuery Exists */
