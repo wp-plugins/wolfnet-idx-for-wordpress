@@ -36,7 +36,7 @@ class Wolfnet_Plugin
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '1.7.4';
+    public $version = '1.7.5';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
