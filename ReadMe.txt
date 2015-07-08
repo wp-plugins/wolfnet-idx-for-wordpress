@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde, blots
 Tags:               idx, mls, homes
 Requires at least:  3.5.1
 Tested up to:       4.2.1
-Stable tag:         1.7.8
+Stable tag:         1.7.9
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,12 @@ Please upgrade to the latest version of the plugin as we will be disabling the i
 Please upgrade to the latest version of the plugin as we will be disabling our old API servers. This means that plugin versions 0.1.0 - 1.6.4 will no longer function.
 
 == Changelog ==
+
+= 1.7.9 =
+* Some code cleanup for consistency
+* Fix for potential PHP warning with a reference to undefined array key
+* Refactoring of how search criteria are collected and passed to the API. Fixes some issues with unaccounted for criteria and future proofing for new criteria.
+* Omit non-geocoded listings from map. Fixes issue with map not displaying when listings that are not geocoded (for various reasons) are included in results.
 
 = 1.7.8 =
 * Fixes branding issue on paginated listing grid results
