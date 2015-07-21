@@ -36,7 +36,7 @@ class Wolfnet_Plugin
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '1.7.10';
+    public $version = '1.7.11';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
@@ -1992,6 +1992,7 @@ class Wolfnet_Plugin
             'mode',
             'savedsearch',
             'savedsearches',
+            'wntSavedSearches',
             'key',
             'keyid',
             'title',
@@ -2026,6 +2027,13 @@ class Wolfnet_Plugin
                 unset($criteria[$crit]);
             }
 
+        }
+
+        // Remove non-scalar values
+        foreach ($criteria as $crit => $value) {
+            if (!is_scalar($value)) {
+                unset($criteria[$crit]);
+            }
         }
 
         return $criteria;
