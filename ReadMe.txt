@@ -4,7 +4,7 @@ Contributors:       wolfnettech, ajmichels, asbaumgart, michaelpidde, blots
 Tags:               idx, mls, homes
 Requires at least:  3.5.1
 Tested up to:       4.2.1
-Stable tag:         1.7.11
+Stable tag:         1.7.13
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,14 @@ Please upgrade to the latest version of the plugin as we will be disabling the i
 Please upgrade to the latest version of the plugin as we will be disabling our old API servers. This means that plugin versions 0.1.0 - 1.6.4 will no longer function.
 
 == Changelog ==
+
+= 1.7.13 =
+* Fixes bug causing sort drop down to display when no listing are returned.
+* Fixes issue with agent/office display
+* Fixes issue with exact city defaults
+
+= 1.7.12 =
+* Fixes styling issue with property list widget
 
 = 1.7.11 =
 * Fixes issues with non-scalar values in API requests

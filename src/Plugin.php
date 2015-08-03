@@ -36,7 +36,7 @@ class Wolfnet_Plugin
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '1.7.11';
+    public $version = '1.7.13';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
@@ -1317,7 +1317,7 @@ class Wolfnet_Plugin
             'direction'  => 'left',
             'autoplay'   => true,
             'speed'      => 5,
-            'ownertype'  => 'agent_broker', 'owner_type' => 'agent_broker',
+            'ownertype'  => 'agent_broker',
             'maxresults' => 50,
             'numrows'    => 50,
             'startrow'   => 1,
@@ -1565,6 +1565,9 @@ class Wolfnet_Plugin
             $vars['wpMeta']['startrow'] = 1;
         }
 
+        $vars['wpMeta']['paginated'] = ($vars['wpMeta']['paginated'] === true || $vars['wpMeta']['paginated'] === 'true');
+        $vars['wpMeta']['sortoptions'] = ($vars['wpMeta']['sortoptions'] === true || $vars['wpMeta']['sortoptions'] === 'true');
+
         if ($vars['wpMeta']['paginated'] || $vars['wpMeta']['sortoptions']) {
             $vars['toolbarTop']    = $this->getToolbar($vars, 'wolfnet_toolbarTop ');
             $vars['toolbarBottom'] = $this->getToolbar($vars, 'wolfnet_toolbarBottom ');
@@ -1621,7 +1624,7 @@ class Wolfnet_Plugin
             'savedsearch' => '',
             'zipcode'     => '',
             'city'        => '',
-            'exactcity'   => 0,
+            'exactcity'   => null,
             'minprice'    => '',
             'maxprice'    => '',
             'keyid'       => 1,
@@ -1648,7 +1651,7 @@ class Wolfnet_Plugin
             'savedsearch' => '',
             'zipcode'     => '',
             'city'        => '',
-            'exactcity'   => 0,
+            'exactcity'   => null,
             'minprice'    => '',
             'maxprice'    => '',
             'keyid'       => 1,
@@ -1933,10 +1936,14 @@ class Wolfnet_Plugin
         // If multiple cities were selected we must set "exact_city" to false
         $hasCity = array_key_exists('city', $criteria);
         $hasExactCity = array_key_exists('exact_city', $criteria);
-        $hasMultipleCities = ($hasCity && count(explode(',', $criteria['city'])) > 0);
+        $hasMultipleCities = ($hasCity && count(explode(',', trim($criteria['city']))) > 1);
 
         if ($hasExactCity && $hasMultipleCities) {
             $criteria['exact_city'] = 0;
+        }
+
+        if ($criteria['exact_city'] === null || trim($criteria['exact_city']) === '') {
+            unset($criteria['exact_city']);
         }
 
         // Translate legacy "primary search type" criteria to API criteria
