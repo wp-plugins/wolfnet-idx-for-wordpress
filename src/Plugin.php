@@ -36,7 +36,7 @@ class Wolfnet_Plugin
      * as part of the Ant build process that is run when the plugin is packaged for distribution.
      * @var string
      */
-    public $version = '1.7.13';
+    public $version = '1.7.14';
 
     /**
      * This property is used to set the option group for the plugin which creates a namespaced
@@ -1933,17 +1933,18 @@ class Wolfnet_Plugin
 
         }
 
-        // If multiple cities were selected we must set "exact_city" to false
-        $hasCity = array_key_exists('city', $criteria);
-        $hasExactCity = array_key_exists('exact_city', $criteria);
-        $hasMultipleCities = ($hasCity && count(explode(',', trim($criteria['city']))) > 1);
+        if (array_key_exists('exact_city', $criteria)) {
+            $hasCity = array_key_exists('city', $criteria);
 
-        if ($hasExactCity && $hasMultipleCities) {
-            $criteria['exact_city'] = 0;
-        }
+            // If multiple cities were selected we must set "exact_city" to false
+            if ($hasCity && count(explode(',', trim($criteria['city']))) > 1) {
+                $criteria['exact_city'] = 0;
+            }
 
-        if ($criteria['exact_city'] === null || trim($criteria['exact_city']) === '') {
-            unset($criteria['exact_city']);
+            if ($criteria['exact_city'] === null || trim($criteria['exact_city']) === '') {
+                unset($criteria['exact_city']);
+            }
+
         }
 
         // Translate legacy "primary search type" criteria to API criteria

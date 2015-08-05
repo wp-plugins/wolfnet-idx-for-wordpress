@@ -221,6 +221,7 @@
   box-shadow: 0 5px 10px rgba(153, 153, 153, 0.25);
   margin: auto;
   border: 1px solid #EBEBEB;
+  max-width: 100%;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_price, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_price {
   font-size: 1.2em;
@@ -250,6 +251,8 @@
   border: 0;
   border-radius: 0;
   box-shadow: none;
+  max-width: 100%;
+  max-height: 95px;
 }
 .wolfnet_widget.wolfnet_featuredListings .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo.wolfnet_idxLogo img, .wolfnet_widget.wolfnet_listingGrid .wolfnet_listing .wolfnet_branding .wolfnet_brokerLogo.wolfnet_idxLogo img {
   max-width: 45px;
